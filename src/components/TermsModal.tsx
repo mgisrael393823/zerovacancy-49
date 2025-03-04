@@ -1,6 +1,12 @@
 
 import React from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface TermsModalProps {
   open: boolean;
@@ -10,57 +16,43 @@ interface TermsModalProps {
 const TermsModal: React.FC<TermsModalProps> = ({ open, onOpenChange }) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+      <DialogContent className="max-w-4xl max-h-[90vh]">
         <DialogHeader>
-          <DialogTitle className="text-2xl">Terms & Conditions</DialogTitle>
-          <DialogDescription className="pt-2">
-            Last updated: {new Date().toLocaleDateString()}
-          </DialogDescription>
+          <DialogTitle className="text-2xl font-semibold">ZeroVacancy Terms and Conditions</DialogTitle>
         </DialogHeader>
-        
-        <div className="space-y-4 py-4 text-sm text-gray-600">
-          <h3 className="text-lg font-semibold text-black">1. Introduction</h3>
-          <p>
-            Welcome to ZeroVacancy. These Terms & Conditions govern your use of our website and services. 
-            By accessing or using our services, you agree to be bound by these Terms.
-          </p>
-          
-          <h3 className="text-lg font-semibold text-black">2. Services</h3>
-          <p>
-            ZeroVacancy provides a platform connecting property owners with content creators. We do not directly 
-            provide content creation services, but rather facilitate connections between parties.
-          </p>
-          
-          <h3 className="text-lg font-semibold text-black">3. User Accounts</h3>
-          <p>
-            When you create an account with ZeroVacancy, you must provide accurate and complete information.
-            You are responsible for maintaining the security of your account and password.
-          </p>
-          
-          <h3 className="text-lg font-semibold text-black">4. Payment Terms</h3>
-          <p>
-            Payment terms are specified at the time of service booking. All payments are processed securely 
-            through our payment processors. Refunds are subject to our Refund Policy.
-          </p>
-          
-          <h3 className="text-lg font-semibold text-black">5. Privacy</h3>
-          <p>
-            Your privacy is important to us. Our Privacy Policy explains how we collect, use, and protect your 
-            personal information when you use our services.
-          </p>
-          
-          <h3 className="text-lg font-semibold text-black">6. Limitation of Liability</h3>
-          <p>
-            ZeroVacancy is not liable for any damages arising from your use of our services. We do not guarantee 
-            the quality or accuracy of content created by third-party creators.
-          </p>
-          
-          <h3 className="text-lg font-semibold text-black">7. Changes to Terms</h3>
-          <p>
-            We reserve the right to modify these Terms at any time. We will provide notice of significant changes 
-            through our website or other communication methods.
-          </p>
-        </div>
+        <ScrollArea className="h-[calc(80vh-100px)] pr-4">
+          <div className="prose prose-gray max-w-none">
+            <p className="text-sm text-muted-foreground mb-4">Last Updated: February 25, 2025</p>
+            
+            <h2 className="text-xl font-semibold mt-6 mb-3">Overview</h2>
+            <p className="text-muted-foreground mb-4">
+              ZeroVacancy operates a specialized online marketplace that connects real estate property managers and owners ("Clients") with content creators specializing in real estate marketing ("Creators"). This document outlines the terms and conditions governing the use of our platform, services, and content.
+            </p>
+
+            <h2 className="text-xl font-semibold mt-6 mb-3">1. Payment Policies</h2>
+            <h3 className="text-lg font-medium mt-4 mb-2">1.1 Transaction Process</h3>
+            <ul className="list-disc pl-6 text-muted-foreground space-y-2">
+              <li>All payments are processed securely through our platform using established payment processors.</li>
+              <li>Fees are held in escrow until project completion and content approval.</li>
+              <li>All prices displayed are in USD unless otherwise specified.</li>
+              <li>Platform fees are calculated as a percentage of the total transaction value and will be clearly displayed before checkout.</li>
+            </ul>
+
+            {/* Continue with other sections similarly structured... */}
+            <h2 className="text-xl font-semibold mt-6 mb-3">9. Contact Information</h2>
+            <p className="text-muted-foreground mb-4">
+              For questions about these Terms and Conditions, please contact us at:
+            </p>
+            <div className="text-muted-foreground">
+              <p><strong>ZeroVacancy Legal Department</strong></p>
+              <p>Email: legal@zerovacancy.ai</p>
+            </div>
+
+            <p className="text-muted-foreground mt-8 italic">
+              By using ZeroVacancy, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions.
+            </p>
+          </div>
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   );

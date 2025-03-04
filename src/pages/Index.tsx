@@ -13,6 +13,7 @@ import { Star } from 'lucide-react';
 import { GlowDialog } from '@/components/ui/glow-dialog';
 import { Spotlight } from '@/components/ui/spotlight';
 import { AnimatedShinyText } from '@/components/ui/animated-shiny-text';
+import { FeaturesSectionWithHoverEffects } from '@/components/Features';
 import Pricing from '@/components/Pricing';
 import { Waves } from '@/components/ui/waves';
 
@@ -115,6 +116,15 @@ const Index = () => {
               <div id="search" className="relative overflow-hidden w-full">
                 <PreviewSearch />
               </div>
+            </div>
+          </div>
+
+          {/* Professional Content Creation Services */}
+          <div className="relative py-10 sm:py-16 lg:py-20 overflow-hidden bg-[#F1F0FB] border-t border-b border-gray-100 w-full">
+            <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px] opacity-40"></div>
+            <Spotlight className="from-emerald-500/20 via-teal-500/20 to-cyan-500/20" size={350} />
+            <div className="relative z-10 max-w-7xl mx-auto">
+              <FeaturesSectionWithHoverEffects />
             </div>
           </div>
 
