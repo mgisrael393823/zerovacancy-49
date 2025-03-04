@@ -1,11 +1,34 @@
+
 import React from 'react';
 import { SearchBar } from './search/SearchBar';
 import { CreatorsList } from './search/CreatorsList';
 import { AuroraBackground } from './ui/aurora-background';
+import { BorderBeam } from './ui/border-beam';
+import { GlowingEffect } from './ui/glowing-effect';
+
 const PreviewSearch = () => {
-  return <div className="w-full px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto">
-        <div className="rounded-xl overflow-hidden shadow-lg border border-gray-100 bg-white my-[20px]">
+  return (
+    <div className="w-full px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto relative group">
+        <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-zinc-800/70 via-zinc-700/70 to-zinc-900/70 opacity-75 blur-sm group-hover:opacity-100 transition duration-500"></div>
+        <div className="relative rounded-xl overflow-hidden shadow-2xl border border-zinc-800/40 bg-white">
+          <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-xl">
+            <BorderBeam 
+              colorFrom="#222222" 
+              colorTo="#555555" 
+              duration={20}
+              borderWidth={2}
+            />
+            <GlowingEffect 
+              variant="default" 
+              blur={8} 
+              glow={true} 
+              inactiveZone={0.6}
+              spread={15}
+              borderWidth={1.5}
+              className="opacity-40"
+            />
+          </div>
           <AuroraBackground className="min-h-0 w-full" showRadialGradient={false}>
             <div className="flex flex-col w-full">
               {/* Title and subtitle */}
@@ -56,6 +79,8 @@ const PreviewSearch = () => {
           </AuroraBackground>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default PreviewSearch;

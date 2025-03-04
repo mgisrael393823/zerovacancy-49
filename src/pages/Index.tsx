@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Header from '../components/Header';
 import { Hero } from '../components/Hero';
@@ -133,7 +134,7 @@ const Index = () => {
               
               {/* Featured Creators Section - Now inside How It Works */}
               {isLoaded && (
-                <div className="max-w-7xl mx-auto pt-8 sm:pt-12">
+                <div className="max-w-7xl mx-auto pt-8 sm:pt-12 pb-6">
                   <Suspense fallback={<LoadingFallback />}>
                     <PreviewSearch />
                   </Suspense>
