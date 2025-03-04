@@ -62,13 +62,15 @@ export const CreatorCard: React.FC<CreatorCardProps> = ({
             </span>
           </div>
 
-          <CreatorMedia 
-            creator={creator}
-            onImageLoad={onImageLoad}
-            onVideoLoad={() => onImageLoad?.(creator.image)}
-          />
-          
-          <CreatorInfo creator={creator} />
+          <div className="relative">
+            <CreatorMedia 
+              creator={creator}
+              onImageLoad={onImageLoad}
+              onVideoLoad={() => onImageLoad?.(creator.image)}
+            />
+            
+            <CreatorInfo creator={creator} />
+          </div>
           
           <div className="p-3.5 sm:p-4.5 flex flex-col h-[180px]">
             <div className="flex flex-col h-full">

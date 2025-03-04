@@ -15,7 +15,7 @@ interface CreatorInfoProps {
 
 export const CreatorInfo: React.FC<CreatorInfoProps> = ({ creator }) => {
   return (
-    <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 text-white select-text">
+    <div className="absolute top-3 sm:top-4 left-3 sm:left-4 text-white select-text">
       {/* Semi-transparent background with properly constrained dimensions */}
       <div className="absolute inset-0 -m-2 bg-black/40 backdrop-blur-[2px] rounded-lg z-0 w-fit max-w-[calc(100%-1rem)]"></div>
       
