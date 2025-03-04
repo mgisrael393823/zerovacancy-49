@@ -150,7 +150,7 @@ export const Waves = memo(({
     };
   }, [isVisible, drawWave, isReducedMotion]);
   return <div ref={containerRef} className={cn('absolute inset-0 overflow-hidden', className)}>
-      {(isVisible || isReducedMotion) && <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 w-full h-full bg-gray-50" />}
+      {(isVisible || isReducedMotion) && <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 w-full bg-gray-50" />}
     </div>;
 });
 Waves.displayName = "Waves";
