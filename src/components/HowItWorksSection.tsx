@@ -155,52 +155,52 @@ const HowItWorksSection = () => {
     controls.start("visible");
   }, [controls]);
   const steps = [{
-    icon: <Search className="w-5 h-5" />,
+    icon: <Search className="w-4 h-4" />,
     title: "Search & Filter",
     description: "Find your perfect creator match based on your specific needs and requirements",
     number: "01"
   }, {
-    icon: <Users className="w-5 h-5" />,
+    icon: <Users className="w-4 h-4" />,
     title: "Review & Compare",
     description: "Browse portfolios and reviews to find the perfect match for your project",
     number: "02"
   }, {
-    icon: <Calendar className="w-5 h-5" />,
+    icon: <Calendar className="w-4 h-4" />,
     title: "Book & Pay",
     description: "Schedule securely through our platform with protected payments",
     number: "03"
   }, {
-    icon: <FileCheck className="w-5 h-5" />,
+    icon: <FileCheck className="w-4 h-4" />,
     title: "Get Content",
     description: "Receive and approve your deliverables through our streamlined process",
     number: "04"
   }];
-  return <section className="relative overflow-hidden py-8 px-4 sm:px-6 bg-gray-50/5 my-0 sm:py-0 lg:px-[28px]">
+  return <section className="relative overflow-hidden py-6 px-4 sm:px-6 bg-gray-50/5 my-0 sm:py-0 lg:px-[28px]">
       <div className="max-w-7xl mx-auto py-0 px-px">
-        <div className="text-center mb-6 sm:mb-14">
-          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight mb-3 sm:mb-4">
+        <div className="text-center mb-4 sm:mb-14">
+          <h3 className="text-xl sm:text-3xl lg:text-4xl font-semibold tracking-tight mb-2 sm:mb-4">
             How It Works
           </h3>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto">
             Your journey to amazing content in four simple steps
           </p>
         </div>
         
-        {/* Mobile vertical layout */}
-        <div className="md:hidden space-y-[14px] relative">
+        {/* Mobile compact layout */}
+        <div className="md:hidden space-y-2 relative">
           {/* Connecting gradient line */}
-          <div className="absolute left-[8px] top-0 bottom-0 w-[3px] bg-gradient-to-b from-violet-500 via-blue-500 via-amber-500 to-emerald-500 opacity-60"></div>
+          <div className="absolute left-[8px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-violet-500 via-blue-500 via-amber-500 to-emerald-500 opacity-60"></div>
           
           {steps.map((step, index) => <motion.div key={index} initial={{
           opacity: 0,
-          y: 20
+          y: 15
         }} whileInView={{
           opacity: 1,
           y: 0,
           transition: {
             type: "spring",
-            duration: 0.6,
-            delay: index * 0.15
+            duration: 0.5,
+            delay: index * 0.1
           }
         }} whileTap={{
           scale: 1.02,
@@ -209,38 +209,37 @@ const HowItWorksSection = () => {
           }
         }} viewport={{
           once: true,
-          margin: "-30px"
-        }} className={cn("relative bg-white", "w-full max-w-[327px] min-h-[100px]", "p-4", "rounded-lg", "shadow-[0_2px_4px_rgba(0,0,0,0.05),0_2px_2px_rgba(0,0,0,0.05)]", "border border-gray-100", stepColors[index].borderColor, "border-l-[3px]", "touch-manipulation", "mx-auto", "transition-transform duration-200", "cursor-pointer")}>
-              <div className="flex items-start">
+          margin: "-20px"
+        }} className={cn("relative bg-white", "w-full max-w-[335px] min-h-[68px]", "py-2 px-3", "rounded-lg", "shadow-[0_1px_2px_rgba(0,0,0,0.05)]", "border border-gray-100", stepColors[index].borderColor, "border-l-[3px]", "touch-manipulation", "mx-auto", "transition-transform duration-200", "cursor-pointer")}>
+              <div className="flex items-center">
                 {/* Left side: Number circle with integrated icon */}
-                <div className="relative mr-3">
-                  <div className={cn("w-8 h-8", stepColors[index].numBg, stepColors[index].numText, "rounded-full", "flex items-center justify-center", "text-sm font-medium", "shadow-sm", "relative", "mt-[2px]" // Align with first line of title
-              )}>
+                <div className="relative mr-2 flex-shrink-0">
+                  <div className={cn("w-6 h-6", stepColors[index].numBg, stepColors[index].numText, "rounded-full", "flex items-center justify-center", "text-xs font-medium", "shadow-sm")}>
                     <span className="flex items-center justify-center w-full h-full">
                       {index + 1}
                     </span>
                     
                     {/* Completed checkmark */}
                     {completedSteps.includes(index) && <div className="absolute -right-1 -top-1 bg-white rounded-full p-0.5 shadow-sm">
-                        <Check className="w-3 h-3 text-green-500" />
+                        <Check className="w-2 h-2 text-green-500" />
                       </div>}
                   </div>
                 </div>
                 
                 {/* Content */}
                 <div className="flex-1">
-                  {/* Title with icon next to it */}
-                  <div className="flex items-center">
-                    <h4 className="text-[16px] font-semibold text-gray-900">
+                  {/* Title with icon, combined in one line */}
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-[15px] font-semibold text-gray-900">
                       {step.title}
                     </h4>
-                    <div className={cn("ml-2", stepColors[index].iconText)}>
+                    <div className={cn("ml-1", stepColors[index].iconText)}>
                       {step.icon}
                     </div>
                   </div>
                   
-                  {/* Description with reduced spacing */}
-                  <p className="text-[14px] text-gray-600 leading-[1.4] mt-1">
+                  {/* Description as a single line with ellipsis */}
+                  <p className="text-xs text-gray-600 leading-tight line-clamp-2">
                     {step.description}
                   </p>
                 </div>
