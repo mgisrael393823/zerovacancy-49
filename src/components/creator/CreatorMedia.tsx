@@ -86,11 +86,7 @@ export const CreatorMedia: React.FC<CreatorMediaProps> = ({
           )}
         </>
       )}
-      {/* Modified gradient overlay - less intense and only at the bottom where the text is */}
-      <div 
-        className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/75 to-transparent pointer-events-none" 
-        aria-hidden="true"
-      />
+      {/* Removed the gradient overlay div that was here */}
     </div>
   );
 };
