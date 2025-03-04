@@ -86,7 +86,9 @@ export const CreatorMedia: React.FC<CreatorMediaProps> = ({
           )}
         </>
       )}
-      {/* Removed the gradient overlay div that was here */}
+      
+      {/* Semi-transparent dark overlay to improve text readability */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/10 pointer-events-none"></div>
     </div>
   );
 };
