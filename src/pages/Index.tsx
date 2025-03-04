@@ -69,14 +69,15 @@ const Index = () => {
                 size="sm" 
                 className="
                   flex text-xs sm:text-sm items-center 
-                  whitespace-nowrap px-3 py-2 sm:px-5 sm:py-2.5
+                  whitespace-nowrap px-2 py-1.5 sm:px-5 sm:py-2.5
                   bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold
-                  border-2 border-amber-300
+                  border border-amber-300 sm:border-2
                   transition-all duration-200
-                  min-h-[2.25rem] sm:min-h-[2.5rem]
-                  min-w-[8rem] sm:min-w-[9rem]
+                  min-h-[1.75rem] sm:min-h-[2.5rem]
+                  min-w-[6rem] sm:min-w-[9rem]
                   touch-manipulation
-                  shadow-[0_2px_10px_rgba(0,0,0,0.15)]
+                  shadow-[0_2px_8px_rgba(0,0,0,0.1)]
+                  text-[11px] sm:text-xs md:text-sm
                 " 
                 onClick={handleTryNowClick}
               >
@@ -86,19 +87,19 @@ const Index = () => {
             layout="complex" 
             isClosable 
             onClose={() => setShowBanner(false)} 
-            className="animate-in fade-in slide-in-from-top duration-500 relative overflow-hidden min-h-[3.25rem] sm:min-h-[3.5rem] my-0 py-0"
+            className="animate-in fade-in slide-in-from-top duration-500 relative overflow-hidden min-h-[2.75rem] sm:min-h-[3.5rem] my-0 py-0"
           >
-            <div className="flex items-center justify-center gap-3 sm:gap-4 relative z-10">
-              <Star className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-300 animate-pulse" />
+            <div className="flex items-center justify-start gap-1 sm:gap-4 relative z-10">
+              <Star className="h-3 w-3 sm:h-6 sm:w-6 text-yellow-300 animate-pulse" />
               <AnimatedShinyText 
                 className="
-                  text-sm sm:text-base font-bold inline-block
+                  text-xs sm:text-base font-bold inline-block
                   text-white relative z-10 rounded
-                  px-1 tracking-wide
+                  px-0 sm:px-1 tracking-wide
                 " 
                 shimmerWidth={200}
               >
-                Join the AI-powered revolution in property management!
+                Join the AI-powered revolution!
               </AnimatedShinyText>
             </div>
           </Banner>
