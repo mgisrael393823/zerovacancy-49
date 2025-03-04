@@ -69,29 +69,49 @@ export function Banner({
       <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[length:20px_20px] z-0"></div>
       
       <div className="
-        flex items-center justify-center gap-4 sm:gap-6 flex-1
-        flex-nowrap
+        flex items-center justify-between gap-3 sm:gap-6 w-full
+        flex-wrap sm:flex-nowrap
         px-2 sm:px-4
         relative z-10
       ">
-        <div className="flex items-center gap-3 justify-center text-center">
-          {children}
+        <div className="flex items-center gap-2 sm:gap-3 justify-center text-center mx-auto sm:mx-0 mb-1 sm:mb-0">
+          {icon && (
+            <span className="flex-shrink-0 hidden sm:block">
+              {icon}
+            </span>
+          )}
+          <span className="font-medium text-sm sm:text-base px-1">{children}</span>
         </div>
 
-        {icon && (
-          <span className="flex-shrink-0 animate-pulse">
-            {icon}
-          </span>
-        )}
-
         {action && (
-          <div className="flex-shrink-0">
-            <div className="scale-95 sm:scale-100 transform hover:scale-105 transition-all duration-300">
+          <div className="flex-shrink-0 mx-auto sm:mx-0">
+            <div className="scale-100 transform hover:scale-105 transition-all duration-300">
               {action}
             </div>
           </div>
         )}
       </div>
     </div>
+  );
+}
+
+// Example usage:
+export function MarketplaceBanner() {
+  return (
+    <Banner 
+      variant="purple" 
+      icon={<Sparkle className="h-4 w-4" />}
+      action={
+        <Button 
+          variant="warning" 
+          size="sm" 
+          className="text-sm font-medium px-3 py-1 h-auto bg-yellow-400 hover:bg-yellow-500 text-gray-900"
+        >
+          Get Early Access
+        </Button>
+      }
+    >
+      Get priority access to the creator marketplace!
+    </Banner>
   );
 }
