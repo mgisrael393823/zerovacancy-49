@@ -39,14 +39,7 @@ const CreatorSpecialties = () => {
 
 const PreviewSearch = () => {
   return (
-    <div className="w-full px-4 sm:px-6 lg:px-8 text-center">
-      <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2 sm:mb-3 text-gray-900">
-        Find Your Perfect Creator
-      </h2>
-      <p className="text-gray-600 max-w-2xl mx-auto mb-6 sm:mb-8 text-sm sm:text-base">
-        Connect with skilled professionals who can showcase your property in its best light
-      </p>
-      
+    <div className="w-full px-4 sm:px-6 lg:px-8">
       <div className="mx-auto relative group">
         <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-purple-800/40 via-indigo-700/40 to-purple-900/40 opacity-75 blur-sm group-hover:opacity-100 transition duration-500"></div>
         <div className="relative rounded-xl overflow-hidden shadow-[0_10px_40px_-12px_rgba(120,80,200,0.25)] border border-zinc-200/60 bg-white">
@@ -73,10 +66,18 @@ const PreviewSearch = () => {
             showRadialGradient={false}
           >
             <div className="flex flex-col w-full relative z-10">
-              {/* Title and subtitle removed as they are now above the component */}
+              {/* Title and subtitle moved to inside the component */}
+              <div className="text-center pt-6 pb-2 px-4">
+                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2 sm:mb-3 text-gray-900">
+                  Find Your Perfect Creator
+                </h2>
+                <p className="text-gray-600 max-w-2xl mx-auto mb-4 sm:mb-6 text-sm sm:text-base">
+                  Connect with skilled professionals who can showcase your property in its best light
+                </p>
+              </div>
               
               {/* Creator specialties with iconography */}
-              <div className="w-full pt-5 pb-2 px-4">
+              <div className="w-full pt-2 pb-2 px-4">
                 <CreatorSpecialties />
               </div>
               
