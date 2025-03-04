@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Search, Users, FileCheck, Calendar, Check, ArrowRight } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Search, Users, FileCheck, Calendar, Check, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, useAnimation } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -47,7 +47,7 @@ const stepColors = [{
   gradient: "bg-gradient-to-br from-emerald-50 to-emerald-100"
 }];
 
-// New component for desktop connecting lines between steps
+// Component for desktop connecting lines between steps
 const ConnectingLines = () => {
   return <div className="absolute top-16 left-0 w-full z-0 hidden lg:block pointer-events-none">
       {/* First connector line - violet to blue */}
@@ -138,10 +138,14 @@ const ConnectingLines = () => {
       </motion.div>
     </div>;
 };
+
 const HowItWorksSection = () => {
   const isMobile = useIsMobile();
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const controls = useAnimation();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [maxScroll, setMaxScroll] = useState(0);
 
   // Simulate completed steps (in a real app, this would come from user progress data)
   useEffect(() => {
@@ -150,32 +154,72 @@ const HowItWorksSection = () => {
       setCompletedSteps(JSON.parse(savedProgress));
     }
   }, []);
+
   useEffect(() => {
     // Animate elements when they come into view
     controls.start("visible");
+    
+    // Calculate max scroll width for horizontal scroll
+    if (scrollContainerRef.current) {
+      const scrollWidth = scrollContainerRef.current.scrollWidth;
+      const clientWidth = scrollContainerRef.current.clientWidth;
+      setMaxScroll(scrollWidth - clientWidth);
+    }
   }, [controls]);
+
+  // Scroll handlers for mobile horizontal scroll
+  const handleScrollLeft = () => {
+    if (scrollContainerRef.current) {
+      const newPosition = Math.max(0, scrollPosition - 200);
+      scrollContainerRef.current.scrollTo({
+        left: newPosition,
+        behavior: 'smooth'
+      });
+      setScrollPosition(newPosition);
+    }
+  };
+
+  const handleScrollRight = () => {
+    if (scrollContainerRef.current) {
+      const newPosition = Math.min(maxScroll, scrollPosition + 200);
+      scrollContainerRef.current.scrollTo({
+        left: newPosition,
+        behavior: 'smooth'
+      });
+      setScrollPosition(newPosition);
+    }
+  };
+
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      setScrollPosition(scrollContainerRef.current.scrollLeft);
+    }
+  };
+
   const steps = [{
-    icon: <Search className="w-4 h-4" />,
+    icon: <Search className="w-5 h-5" />,
     title: "Search & Filter",
     description: "Find your perfect creator match based on your specific needs and requirements",
     number: "01"
   }, {
-    icon: <Users className="w-4 h-4" />,
+    icon: <Users className="w-5 h-5" />,
     title: "Review & Compare",
     description: "Browse portfolios and reviews to find the perfect match for your project",
     number: "02"
   }, {
-    icon: <Calendar className="w-4 h-4" />,
+    icon: <Calendar className="w-5 h-5" />,
     title: "Book & Pay",
     description: "Schedule securely through our platform with protected payments",
     number: "03"
   }, {
-    icon: <FileCheck className="w-4 h-4" />,
+    icon: <FileCheck className="w-5 h-5" />,
     title: "Get Content",
     description: "Receive and approve your deliverables through our streamlined process",
     number: "04"
   }];
-  return <section className="relative overflow-hidden py-6 px-4 sm:px-6 bg-gray-50/5 my-0 sm:py-0 lg:px-[28px]">
+
+  return (
+    <section className="relative overflow-hidden py-6 sm:py-12 px-4 sm:px-6 lg:px-[28px] bg-gray-50/5">
       <div className="max-w-7xl mx-auto py-0 px-px">
         <div className="text-center mb-4 sm:mb-14">
           <h3 className="text-xl sm:text-3xl lg:text-4xl font-semibold tracking-tight mb-2 sm:mb-4">
@@ -186,65 +230,212 @@ const HowItWorksSection = () => {
           </p>
         </div>
         
-        {/* Mobile compact layout */}
-        <div className="md:hidden space-y-2 relative">
-          {/* Connecting gradient line */}
-          <div className="absolute left-[8px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-violet-500 via-blue-500 via-amber-500 to-emerald-500 opacity-60"></div>
+        {/* Mobile horizontal scroll layout */}
+        <div className="md:hidden w-full relative mb-3">
+          {/* Scroll navigation buttons */}
+          <div className="flex justify-between absolute -left-1 -right-1 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none">
+            <button 
+              onClick={handleScrollLeft} 
+              className={cn(
+                "w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm shadow-md flex items-center justify-center pointer-events-auto",
+                scrollPosition <= 10 ? "opacity-40" : "opacity-80"
+              )}
+              disabled={scrollPosition <= 10}
+            >
+              <ChevronLeft className="w-5 h-5 text-gray-700" />
+            </button>
+            <button 
+              onClick={handleScrollRight} 
+              className={cn(
+                "w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm shadow-md flex items-center justify-center pointer-events-auto",
+                scrollPosition >= maxScroll - 10 ? "opacity-40" : "opacity-80"
+              )}
+              disabled={scrollPosition >= maxScroll - 10}
+            >
+              <ChevronRight className="w-5 h-5 text-gray-700" />
+            </button>
+          </div>
           
-          {steps.map((step, index) => <motion.div key={index} initial={{
-          opacity: 0,
-          y: 15
-        }} whileInView={{
-          opacity: 1,
-          y: 0,
-          transition: {
-            type: "spring",
-            duration: 0.5,
-            delay: index * 0.1
-          }
-        }} whileTap={{
-          scale: 1.02,
-          transition: {
-            duration: 0.2
-          }
-        }} viewport={{
-          once: true,
-          margin: "-20px"
-        }} className={cn("relative bg-white", "w-full max-w-[335px] min-h-[68px]", "py-2 px-3", "rounded-lg", "shadow-[0_1px_2px_rgba(0,0,0,0.05)]", "border border-gray-100", stepColors[index].borderColor, "border-l-[3px]", "touch-manipulation", "mx-auto", "transition-transform duration-200", "cursor-pointer")}>
-              <div className="flex items-center">
-                {/* Left side: Number circle with integrated icon */}
-                <div className="relative mr-2 flex-shrink-0">
-                  <div className={cn("w-6 h-6", stepColors[index].numBg, stepColors[index].numText, "rounded-full", "flex items-center justify-center", "text-xs font-medium", "shadow-sm")}>
-                    <span className="flex items-center justify-center w-full h-full">
-                      {index + 1}
-                    </span>
+          {/* Horizontal scroll container */}
+          <div 
+            ref={scrollContainerRef}
+            className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2 px-1"
+            onScroll={handleScroll}
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {steps.map((step, index) => (
+              <motion.div 
+                key={index} 
+                initial={{
+                  opacity: 0,
+                  y: 10
+                }} 
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    type: "spring",
+                    duration: 0.5,
+                    delay: index * 0.1
+                  }
+                }}
+                whileTap={{
+                  scale: 0.98,
+                }}
+                viewport={{
+                  once: true,
+                  margin: "-10px"
+                }} 
+                className={cn(
+                  "relative",
+                  "flex-shrink-0 w-[240px] min-h-[130px]", 
+                  "p-4",
+                  "rounded-xl",
+                  "shadow-md", 
+                  "border border-gray-100",
+                  "mr-3 last:mr-1",
+                  "snap-center",
+                  "touch-manipulation",
+                  "transition-transform duration-200",
+                  "cursor-pointer",
+                  stepColors[index].gradient
+                )}
+              >
+                {/* Step Number */}
+                <div className="flex items-center mb-3">
+                  <div className={cn(
+                    "w-7 h-7",
+                    stepColors[index].numBg, 
+                    stepColors[index].numText,
+                    "rounded-full", 
+                    "flex items-center justify-center", 
+                    "text-sm font-medium", 
+                    "shadow-sm",
+                    "mr-2"
+                  )}>
+                    {index + 1}
                     
                     {/* Completed checkmark */}
-                    {completedSteps.includes(index) && <div className="absolute -right-1 -top-1 bg-white rounded-full p-0.5 shadow-sm">
-                        <Check className="w-2 h-2 text-green-500" />
-                      </div>}
+                    {completedSteps.includes(index) && (
+                      <div className="absolute -right-1 -top-1 bg-white rounded-full p-0.5 shadow-sm">
+                        <Check className="w-3 h-3 text-green-500" />
+                      </div>
+                    )}
+                  </div>
+                  
+                  {/* Title */}
+                  <h4 className="text-sm font-semibold text-gray-900 flex-1">
+                    {step.title}
+                  </h4>
+                  
+                  {/* Icon */}
+                  <div className={cn(
+                    "ml-1",
+                    stepColors[index].iconText,
+                    stepColors[index].iconBg,
+                    "rounded-full p-1"
+                  )}>
+                    {step.icon}
                   </div>
                 </div>
                 
-                {/* Content */}
-                <div className="flex-1">
-                  {/* Title with icon, combined in one line */}
-                  <div className="flex items-center justify-between">
-                    <h4 className="text-[15px] font-semibold text-gray-900">
-                      {step.title}
-                    </h4>
-                    <div className={cn("ml-1", stepColors[index].iconText)}>
-                      {step.icon}
-                    </div>
+                {/* Description */}
+                <p className="text-xs text-gray-600 leading-relaxed">
+                  {step.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Scroll indicators */}
+          <div className="flex justify-center mt-2 space-x-1">
+            {steps.map((_, index) => (
+              <div 
+                key={index}
+                className={cn(
+                  "h-1 rounded-full transition-all duration-300",
+                  index === Math.floor(scrollPosition / (maxScroll / steps.length)) 
+                    ? `w-6 ${stepColors[index].numBg}` 
+                    : "w-2 bg-gray-300"
+                )}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Alternative Mobile 2x2 Grid Layout */}
+        <div className="md:hidden mt-6 hidden">
+          <div className="grid grid-cols-2 gap-3">
+            {steps.map((step, index) => (
+              <motion.div 
+                key={index} 
+                initial={{
+                  opacity: 0,
+                  y: 15
+                }} 
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    type: "spring",
+                    duration: 0.5,
+                    delay: index * 0.1
+                  }
+                }}
+                whileTap={{
+                  scale: 0.98,
+                }}
+                viewport={{
+                  once: true,
+                  margin: "-10px"
+                }} 
+                className={cn(
+                  "relative",
+                  stepColors[index].gradient,
+                  "p-3",
+                  "rounded-lg",
+                  "shadow-sm", 
+                  "border border-gray-100",
+                  "flex flex-col",
+                  "min-h-[140px]",
+                  "touch-manipulation",
+                  "transition-transform duration-200",
+                  "cursor-pointer"
+                )}
+              >
+                {/* Number & Icon */}
+                <div className="flex items-center justify-between mb-2">
+                  <div className={cn(
+                    "w-6 h-6",
+                    stepColors[index].numBg, 
+                    stepColors[index].numText,
+                    "rounded-full", 
+                    "flex items-center justify-center", 
+                    "text-xs font-medium", 
+                    "shadow-sm"
+                  )}>
+                    {index + 1}
                   </div>
                   
-                  {/* Description as a single line with ellipsis */}
-                  <p className="text-xs text-gray-600 leading-tight line-clamp-2">
-                    {step.description}
-                  </p>
+                  <div className={cn(
+                    stepColors[index].iconText,
+                  )}>
+                    {step.icon}
+                  </div>
                 </div>
-              </div>
-            </motion.div>)}
+                
+                {/* Title */}
+                <h4 className="text-sm font-semibold text-gray-900 mb-1">
+                  {step.title}
+                </h4>
+                
+                {/* Description */}
+                <p className="text-xs text-gray-600 leading-tight flex-1">
+                  {step.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </div>
         
         {/* Desktop grid layout with enhanced connecting lines */}
@@ -355,6 +546,8 @@ const HowItWorksSection = () => {
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default HowItWorksSection;
