@@ -1,11 +1,9 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Header from '../components/Header';
 import { Hero } from '../components/Hero';
-import PreviewSearch from '../components/PreviewSearch';
 import CallToActionSection from '../components/CallToActionSection';
 import Footer from '../components/Footer';
-import HowItWorksSection from '../components/HowItWorksSection';
 import { BottomNav } from '../components/navigation/BottomNav';
 import { Banner } from '@/components/ui/banner';
 import { Button } from '@/components/ui/button';
@@ -13,20 +11,44 @@ import { Star } from 'lucide-react';
 import { GlowDialog } from '@/components/ui/glow-dialog';
 import { Spotlight } from '@/components/ui/spotlight';
 import { AnimatedShinyText } from '@/components/ui/animated-shiny-text';
-import { FeaturesSectionWithHoverEffects } from '@/components/Features';
-import Pricing from '@/components/Pricing';
 import { Waves } from '@/components/ui/waves';
 
+// Lazy load heavy components
+const PreviewSearch = lazy(() => import('../components/PreviewSearch'));
+const HowItWorksSection = lazy(() => import('../components/HowItWorksSection'));
+const FeaturesSectionWithHoverEffects = lazy(() => import('@/components/Features'));
+const Pricing = lazy(() => import('@/components/Pricing'));
+
+// Loading fallback component
+const LoadingFallback = () => (
+  <div className="flex items-center justify-center p-12">
+    <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+  </div>
+);
+
 const Index = () => {
-  const [showBanner, setShowBanner] = useState(true);
+  const [showBanner, setShowBanner] = useState(false);
   const [showGlowDialog, setShowGlowDialog] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    // Check if user has visited before
     const hasVisited = localStorage.getItem('hasVisited');
     setShowGlowDialog(!hasVisited);
+    
+    // Only show banner after initial render to prevent layout shift
+    setShowBanner(true);
+    
     if (!hasVisited) {
       localStorage.setItem('hasVisited', 'true');
     }
+    
+    // Mark as loaded after a short delay
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 100);
+    
+    return () => clearTimeout(timer);
   }, []);
 
   const handleTryNowClick = () => {
@@ -106,36 +128,50 @@ const Index = () => {
             />
             <Spotlight className="from-blue-500/20 via-cyan-500/20 to-teal-500/20" size={350} />
             <div className="relative z-10">
-              <HowItWorksSection />
+              <Suspense fallback={<LoadingFallback />}>
+                <HowItWorksSection />
+              </Suspense>
             </div>
           </div>
           
-          {/* Featured Creators Section */}
-          <div className="bg-white py-10 sm:py-16 lg:py-20 border-b border-gray-100 w-full">
-            <div className="max-w-7xl mx-auto">
-              <div id="search" className="relative overflow-hidden w-full">
-                <PreviewSearch />
+          {/* Featured Creators Section - Only render when needed */}
+          {isLoaded && (
+            <div className="bg-white py-10 sm:py-16 lg:py-20 border-b border-gray-100 w-full">
+              <div className="max-w-7xl mx-auto">
+                <div id="search" className="relative overflow-hidden w-full">
+                  <Suspense fallback={<LoadingFallback />}>
+                    <PreviewSearch />
+                  </Suspense>
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           {/* Professional Content Creation Services */}
-          <div className="relative py-10 sm:py-16 lg:py-20 overflow-hidden bg-[#F1F0FB] border-t border-b border-gray-100 w-full">
-            <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px] opacity-40"></div>
-            <Spotlight className="from-emerald-500/20 via-teal-500/20 to-cyan-500/20" size={350} />
-            <div className="relative z-10 max-w-7xl mx-auto">
-              <FeaturesSectionWithHoverEffects />
+          {isLoaded && (
+            <div className="relative py-10 sm:py-16 lg:py-20 overflow-hidden bg-[#F1F0FB] border-t border-b border-gray-100 w-full">
+              <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px] opacity-40"></div>
+              <Spotlight className="from-emerald-500/20 via-teal-500/20 to-cyan-500/20" size={350} />
+              <div className="relative z-10 max-w-7xl mx-auto">
+                <Suspense fallback={<LoadingFallback />}>
+                  <FeaturesSectionWithHoverEffects />
+                </Suspense>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Pricing Section */}
-          <div id="pricing" className="relative py-10 sm:py-16 lg:py-20 overflow-hidden bg-white border-b border-gray-100 w-full">
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#f3f3f3_1px,transparent_1px),linear-gradient(to_bottom,#f3f3f3_1px,transparent_1px)] [background-size:20px_20px] opacity-30"></div>
-            <Spotlight className="from-indigo-500/20 via-purple-500/20 to-pink-500/20" size={350} />
-            <div className="relative z-10 max-w-7xl mx-auto">
-              <Pricing />
+          {isLoaded && (
+            <div id="pricing" className="relative py-10 sm:py-16 lg:py-20 overflow-hidden bg-white border-b border-gray-100 w-full">
+              <div className="absolute inset-0 bg-[linear-gradient(to_right,#f3f3f3_1px,transparent_1px),linear-gradient(to_bottom,#f3f3f3_1px,transparent_1px)] [background-size:20px_20px] opacity-30"></div>
+              <Spotlight className="from-indigo-500/20 via-purple-500/20 to-pink-500/20" size={350} />
+              <div className="relative z-10 max-w-7xl mx-auto">
+                <Suspense fallback={<LoadingFallback />}>
+                  <Pricing />
+                </Suspense>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Final CTA Section */}
           <div className="relative py-14 sm:py-20 lg:py-24 overflow-hidden bg-gradient-to-b from-white to-[#F6F6F7] w-full">

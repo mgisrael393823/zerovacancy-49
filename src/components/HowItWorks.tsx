@@ -1,31 +1,32 @@
-import React from 'react';
+
+import React, { memo } from 'react';
 import { Search, Users, CreditCard, FileCheck } from 'lucide-react';
 import { Button } from './ui/button';
 
-const HowItWorks = () => {
-  const steps = [
-    {
-      icon: <Search className="w-6 h-6" />,
-      title: "Search & Filter",
-      description: "Find the perfect creator based on your specific needs"
-    },
-    {
-      icon: <Users className="w-6 h-6" />,
-      title: "Browse & Compare",
-      description: "Review portfolios and compare creator profiles"
-    },
-    {
-      icon: <CreditCard className="w-6 h-6" />,
-      title: "Book & Pay Securely",
-      description: "Schedule and pay through our secure platform"
-    },
-    {
-      icon: <FileCheck className="w-6 h-6" />,
-      title: "Receive & Approve",
-      description: "Get your content and approve the final deliverables"
-    }
-  ];
+const steps = [
+  {
+    icon: <Search className="w-6 h-6" />,
+    title: "Search & Filter",
+    description: "Find the perfect creator based on your specific needs"
+  },
+  {
+    icon: <Users className="w-6 h-6" />,
+    title: "Browse & Compare",
+    description: "Review portfolios and compare creator profiles"
+  },
+  {
+    icon: <CreditCard className="w-6 h-6" />,
+    title: "Book & Pay Securely",
+    description: "Schedule and pay through our secure platform"
+  },
+  {
+    icon: <FileCheck className="w-6 h-6" />,
+    title: "Receive & Approve",
+    description: "Get your content and approve the final deliverables"
+  }
+];
 
+const HowItWorksComponent = () => {
   return (
     <section className="section-padding bg-secondary/30">
       <div className="mx-auto max-w-7xl">
@@ -62,5 +63,8 @@ const HowItWorks = () => {
     </section>
   );
 };
+
+// Use React.memo to prevent unnecessary re-renders
+const HowItWorks = memo(HowItWorksComponent);
 
 export default HowItWorks;

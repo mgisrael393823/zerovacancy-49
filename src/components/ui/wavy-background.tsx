@@ -1,7 +1,7 @@
 
 "use client";
 import { cn } from "@/lib/utils";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import { createNoise3D } from "simplex-noise";
 
 export const WavyBackground = ({
@@ -27,16 +27,21 @@ export const WavyBackground = ({
   waveOpacity?: number;
   [key: string]: any;
 }) => {
-  const noise = createNoise3D();
-  let w: number,
-    h: number,
-    nt: number,
-    i: number,
-    x: number,
-    ctx: any,
-    canvas: any;
+  const noise = useMemo(() => createNoise3D(), []);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const getSpeed = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [isSafari, setIsSafari] = useState(false);
+  
+  // Memoize wave colors to prevent unnecessary re-renders
+  const waveColors = useMemo(() => colors ?? [
+    "#38bdf8",
+    "#818cf8",
+    "#c084fc",
+    "#e879f9",
+    "#22d3ee",
+  ], [colors]);
+
+  const getSpeed = useCallback(() => {
     switch (speed) {
       case "slow":
         return 0.001;
@@ -45,69 +50,94 @@ export const WavyBackground = ({
       default:
         return 0.001;
     }
-  };
+  }, [speed]);
 
-  const init = () => {
-    canvas = canvasRef.current;
-    ctx = canvas.getContext("2d");
-    w = ctx.canvas.width = window.innerWidth;
-    h = ctx.canvas.height = window.innerHeight;
-    ctx.filter = `blur(${blur}px)`;
-    nt = 0;
-    window.onresize = function () {
-      w = ctx.canvas.width = window.innerWidth;
-      h = ctx.canvas.height = window.innerHeight;
-      ctx.filter = `blur(${blur}px)`;
-    };
-    render();
-  };
-
-  const waveColors = colors ?? [
-    "#38bdf8",
-    "#818cf8",
-    "#c084fc",
-    "#e879f9",
-    "#22d3ee",
-  ];
-  const drawWave = (n: number) => {
-    nt += getSpeed();
-    for (i = 0; i < n; i++) {
+  const drawWave = useCallback((ctx: CanvasRenderingContext2D, n: number, w: number, h: number, nt: number) => {
+    for (let i = 0; i < n; i++) {
       ctx.beginPath();
       ctx.lineWidth = waveWidth || 50;
       ctx.strokeStyle = waveColors[i % waveColors.length];
-      for (x = 0; x < w; x += 5) {
-        var y = noise(x / 800, 0.3 * i, nt) * 100;
+      for (let x = 0; x < w; x += 5) {
+        const y = noise(x / 800, 0.3 * i, nt) * 100;
         ctx.lineTo(x, y + h * 0.5);
       }
       ctx.stroke();
       ctx.closePath();
     }
-  };
-
-  let animationId: number;
-  const render = () => {
-    ctx.fillStyle = backgroundFill || "black";
-    ctx.globalAlpha = waveOpacity || 0.5;
-    ctx.fillRect(0, 0, w, h);
-    drawWave(5);
-    animationId = requestAnimationFrame(render);
-  };
+  }, [noise, waveColors, waveWidth]);
 
   useEffect(() => {
-    init();
-    return () => {
-      cancelAnimationFrame(animationId);
-    };
-  }, []);
-
-  const [isSafari, setIsSafari] = useState(false);
-  useEffect(() => {
+    // Only run browser detection once
     setIsSafari(
       typeof window !== "undefined" &&
         navigator.userAgent.includes("Safari") &&
         !navigator.userAgent.includes("Chrome")
     );
   }, []);
+
+  useEffect(() => {
+    if (!canvasRef.current || !isVisible) return;
+    
+    let canvas = canvasRef.current;
+    let ctx = canvas.getContext('2d');
+    
+    if (!ctx) return;
+    
+    let w = ctx.canvas.width = window.innerWidth;
+    let h = ctx.canvas.height = window.innerHeight;
+    let nt = 0;
+    
+    ctx.filter = `blur(${blur}px)`;
+    
+    const handleResize = () => {
+      w = ctx.canvas.width = window.innerWidth;
+      h = ctx.canvas.height = window.innerHeight;
+      ctx.filter = `blur(${blur}px)`;
+    };
+    
+    window.addEventListener('resize', handleResize);
+    
+    // Use RequestAnimationFrame for smooth animation
+    let animationId: number;
+    
+    const render = () => {
+      if (!ctx) return;
+      
+      ctx.fillStyle = backgroundFill || "black";
+      ctx.globalAlpha = waveOpacity || 0.5;
+      ctx.fillRect(0, 0, w, h);
+      
+      drawWave(ctx, 5, w, h, nt);
+      
+      nt += getSpeed();
+      animationId = requestAnimationFrame(render);
+    };
+    
+    render();
+    
+    // Use IntersectionObserver to detect visibility
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+        } else {
+          setIsVisible(false);
+          cancelAnimationFrame(animationId);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    
+    if (canvas.parentElement) {
+      observer.observe(canvas.parentElement);
+    }
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(animationId);
+      observer.disconnect();
+    };
+  }, [isVisible, blur, backgroundFill, waveOpacity, getSpeed, drawWave]);
 
   return (
     <div
