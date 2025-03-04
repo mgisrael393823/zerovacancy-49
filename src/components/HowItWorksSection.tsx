@@ -47,13 +47,13 @@ const stepColors = [{
   gradient: "bg-gradient-to-br from-emerald-50 to-emerald-100"
 }];
 
-// New component for desktop connecting lines between steps
+// Improved component for desktop connecting lines between steps
 const ConnectingLines = () => {
   return (
-    <div className="absolute top-16 left-0 w-full z-0 hidden lg:block pointer-events-none">
+    <div className="absolute top-24 left-0 w-full z-0 hidden lg:block pointer-events-none">
       {/* First connector line - violet to blue */}
       <motion.div 
-        className="absolute top-8 left-[23%] w-[18%] h-0.5 bg-gradient-to-r from-violet-500 to-blue-500"
+        className="absolute top-8 left-[22%] w-[20%] h-1 bg-gradient-to-r from-violet-500 to-blue-500"
         initial={{ scaleX: 0, transformOrigin: "left" }}
         whileInView={{ 
           scaleX: 1,
@@ -66,7 +66,7 @@ const ConnectingLines = () => {
         viewport={{ once: true, margin: "-100px" }}
       >
         <motion.div 
-          className="absolute -right-3 -top-[7px] text-blue-500"
+          className="absolute -right-4 -top-[9px] text-blue-500"
           initial={{ opacity: 0 }}
           whileInView={{ 
             opacity: 1, 
@@ -74,13 +74,13 @@ const ConnectingLines = () => {
           }}
           viewport={{ once: true }}
         >
-          <ArrowRight className="h-4 w-4" />
+          <ArrowRight className="h-5 w-5" />
         </motion.div>
       </motion.div>
       
       {/* Second connector line - blue to amber */}
       <motion.div 
-        className="absolute top-8 left-[48%] w-[18%] h-0.5 bg-gradient-to-r from-blue-500 to-amber-500"
+        className="absolute top-8 left-[47.5%] w-[20%] h-1 bg-gradient-to-r from-blue-500 to-amber-500"
         initial={{ scaleX: 0, transformOrigin: "left" }}
         whileInView={{ 
           scaleX: 1,
@@ -93,7 +93,7 @@ const ConnectingLines = () => {
         viewport={{ once: true, margin: "-100px" }}
       >
         <motion.div 
-          className="absolute -right-3 -top-[7px] text-amber-500"
+          className="absolute -right-4 -top-[9px] text-amber-500"
           initial={{ opacity: 0 }}
           whileInView={{ 
             opacity: 1, 
@@ -101,13 +101,13 @@ const ConnectingLines = () => {
           }}
           viewport={{ once: true }}
         >
-          <ArrowRight className="h-4 w-4" />
+          <ArrowRight className="h-5 w-5" />
         </motion.div>
       </motion.div>
       
       {/* Third connector line - amber to emerald */}
       <motion.div 
-        className="absolute top-8 left-[73%] w-[18%] h-0.5 bg-gradient-to-r from-amber-500 to-emerald-500"
+        className="absolute top-8 left-[73%] w-[20%] h-1 bg-gradient-to-r from-amber-500 to-emerald-500"
         initial={{ scaleX: 0, transformOrigin: "left" }}
         whileInView={{ 
           scaleX: 1,
@@ -120,7 +120,7 @@ const ConnectingLines = () => {
         viewport={{ once: true, margin: "-100px" }}
       >
         <motion.div 
-          className="absolute -right-3 -top-[7px] text-emerald-500"
+          className="absolute -right-4 -top-[9px] text-emerald-500"
           initial={{ opacity: 0 }}
           whileInView={{ 
             opacity: 1, 
@@ -128,7 +128,7 @@ const ConnectingLines = () => {
           }}
           viewport={{ once: true }}
         >
-          <ArrowRight className="h-4 w-4" />
+          <ArrowRight className="h-5 w-5" />
         </motion.div>
       </motion.div>
     </div>
@@ -154,32 +154,32 @@ const HowItWorksSection = () => {
   }, [controls]);
 
   const steps = [{
-    icon: <Search className="w-5 h-5" />,
+    icon: <Search className="w-6 h-6" />,
     title: "Search & Filter",
     description: "Find your perfect creator match based on your specific needs and requirements",
     number: "01"
   }, {
-    icon: <Users className="w-5 h-5" />,
+    icon: <Users className="w-6 h-6" />,
     title: "Review & Compare",
     description: "Browse portfolios and reviews to find the perfect match for your project",
     number: "02"
   }, {
-    icon: <Calendar className="w-5 h-5" />,
+    icon: <Calendar className="w-6 h-6" />,
     title: "Book & Pay",
     description: "Schedule securely through our platform with protected payments",
     number: "03"
   }, {
-    icon: <FileCheck className="w-5 h-5" />,
+    icon: <FileCheck className="w-6 h-6" />,
     title: "Get Content",
     description: "Receive and approve your deliverables through our streamlined process",
     number: "04"
   }];
 
   return (
-    <section className="relative overflow-hidden py-8 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gray-50/5">
+    <section className="relative overflow-hidden py-16 sm:py-20 px-4 sm:px-8 lg:px-12 bg-gray-50/5">
       <div className="max-w-7xl mx-auto py-0 px-px">
-        <div className="text-center mb-6 sm:mb-14">
-          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight mb-3 sm:mb-4">
+        <div className="text-center mb-12 sm:mb-16">
+          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight mb-4 sm:mb-5">
             How It Works
           </h3>
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -188,7 +188,7 @@ const HowItWorksSection = () => {
         </div>
         
         {/* Mobile vertical layout */}
-        <div className="md:hidden space-y-[14px] relative">
+        <div className="md:hidden space-y-4 relative">
           {/* Connecting gradient line */}
           <div className="absolute left-[8px] top-0 bottom-0 w-[3px] bg-gradient-to-b from-violet-500 via-blue-500 via-amber-500 to-emerald-500 opacity-60"></div>
           
@@ -261,8 +261,8 @@ const HowItWorksSection = () => {
           {/* Connecting lines between steps */}
           <ConnectingLines />
           
-          {/* Grid container */}
-          <div className="grid w-full grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10 relative">
+          {/* Grid container with improved spacing */}
+          <div className="grid w-full grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-6 xl:gap-8 relative">
             {steps.map((step, index) => (
               <motion.div 
                 key={index}
@@ -297,8 +297,8 @@ const HowItWorksSection = () => {
                 className={cn(
                   "relative h-full",
                   stepColors[index].gradient,
-                  "min-h-[220px]", // Standardized card height
-                  "px-6 py-8",
+                  "min-h-[260px]", // Increased card height
+                  "px-6 py-10", // Increased padding
                   "rounded-xl",
                   "transition-all duration-300",
                   "group cursor-pointer",
@@ -310,21 +310,21 @@ const HowItWorksSection = () => {
                 )}
                 aria-label={`Step ${index + 1}: ${step.title}`}
               >
-                {/* Step Number badge */}
+                {/* Step Number badge with improved sizing */}
                 <div 
                   className={cn(
-                    "absolute -top-3 left-6",
+                    "absolute -top-4 left-6",
                     "z-10"
                   )}
                 >
                   <motion.span 
                     className={cn(
                       "inline-flex items-center justify-center",
-                      "w-8 h-8",
+                      "w-10 h-10", // Increased size
                       stepColors[index].numBg, 
                       stepColors[index].numText,
                       "rounded-full",
-                      "text-sm font-medium",
+                      "text-base font-medium", // Larger text
                       "ring-4 ring-white",
                       "shadow-sm"
                     )}
@@ -342,23 +342,23 @@ const HowItWorksSection = () => {
                   >
                     {step.number}
                     
-                    {/* Completed checkmark */}
+                    {/* Completed checkmark - enlarged */}
                     {completedSteps.includes(index) && (
                       <div className="absolute -right-1 -top-1 bg-white rounded-full p-0.5 shadow-sm">
-                        <Check className="w-3 h-3 text-green-500" />
+                        <Check className="w-4 h-4 text-green-500" />
                       </div>
                     )}
                   </motion.span>
                 </div>
                 
-                {/* Icon with enhanced colorful background and animations */}
+                {/* Icon with enhanced colorful background and animations - larger size */}
                 <motion.div 
                   className={cn(
-                    "mb-5",
+                    "mb-6", // Increased spacing
                     stepColors[index].iconBg, 
                     stepColors[index].iconText,
                     "transition-all duration-300",
-                    "rounded-xl p-4",
+                    "rounded-xl p-5", // Increased padding
                     "group-hover:saturate-150",
                     "group-hover:scale-110", 
                     "shadow-sm group-hover:shadow-md"
@@ -370,13 +370,13 @@ const HowItWorksSection = () => {
                   }}
                 >
                   {React.cloneElement(step.icon, {
-                    className: "w-7 h-7"
+                    className: "w-8 h-8" // Larger icon
                   })}
                 </motion.div>
                 
-                {/* Title with motion */}
+                {/* Title with motion - larger and better spacing */}
                 <motion.h4 
-                  className="text-base sm:text-lg font-semibold text-gray-900 mb-3 text-center line-clamp-1"
+                  className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 text-center"
                   initial={{ opacity: 0.8 }}
                   whileInView={{ 
                     opacity: 1,
@@ -387,9 +387,9 @@ const HowItWorksSection = () => {
                   {step.title}
                 </motion.h4>
                 
-                {/* Description with staggered animation */}
+                {/* Description with staggered animation - improved text size and line height */}
                 <motion.p 
-                  className="text-sm text-gray-600 leading-relaxed text-center"
+                  className="text-base text-gray-600 leading-relaxed text-center px-2"
                   initial={{ opacity: 0.6 }}
                   whileInView={{ 
                     opacity: 1,
@@ -400,16 +400,16 @@ const HowItWorksSection = () => {
                   {step.description}
                 </motion.p>
                 
-                {/* Subtle visual indicator of clickability */}
+                {/* Subtle visual indicator of clickability - enlarged */}
                 <div className={cn(
-                  "absolute bottom-3 right-3 w-6 h-6",
+                  "absolute bottom-4 right-4 w-8 h-8", // Larger size
                   "flex items-center justify-center",
                   "rounded-full",
                   "opacity-0 group-hover:opacity-70",
                   "transition-opacity duration-300",
                   stepColors[index].numBg
                 )}>
-                  <ArrowRight className="w-3 h-3 text-white" />
+                  <ArrowRight className="w-4 h-4 text-white" /> {/* Larger icon */}
                 </div>
               </motion.div>
             ))}
