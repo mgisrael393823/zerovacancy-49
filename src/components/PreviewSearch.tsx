@@ -1,14 +1,11 @@
-
 import React from 'react';
 import { SearchBar } from './search/SearchBar';
 import { CreatorsList } from './search/CreatorsList';
 import { AuroraBackground } from './ui/aurora-background';
-
 const PreviewSearch = () => {
-  return (
-    <div className="w-full px-4 sm:px-6 lg:px-8">
+  return <div className="w-full px-4 sm:px-6 lg:px-8">
       <div className="mx-auto">
-        <div className="rounded-xl overflow-hidden shadow-lg border border-gray-100 bg-white">
+        <div className="rounded-xl overflow-hidden shadow-lg border border-gray-100 bg-white my-[20px]">
           <AuroraBackground className="min-h-0 w-full" showRadialGradient={false}>
             <div className="flex flex-col w-full">
               {/* Title and subtitle */}
@@ -26,52 +23,39 @@ const PreviewSearch = () => {
             
               {/* Creators list section - now part of the same flex container */}
               <div className="w-full px-4 py-6 sm:px-8 sm:py-8">
-                <CreatorsList 
-                  creators={[
-                    {
-                      name: "Emily Johnson",
-                      services: ["Photography", "Virtual Staging"],
-                      price: 150,
-                      rating: 4.9,
-                      reviews: 127,
-                      location: "New York, NY",
-                      image: "/newemilyprofile.jpg",
-                      workExamples: ["/1-d2e3f802.jpg"]
-                    },
-                    {
-                      name: "Jane Cooper",
-                      services: ["Video Tours", "Drone Footage"],
-                      price: 200,
-                      rating: 4.8,
-                      reviews: 98,
-                      location: "Los Angeles, CA",
-                      image: "/janeprofile.png",
-                      workExamples: ["/janesub.jpg", "/janesub2.png", "/janesub3.webp"]
-                    },
-                    {
-                      name: "Michael Brown",
-                      services: ["3D Tours", "Floor Plans"],
-                      price: 175,
-                      rating: 4.7,
-                      reviews: 82,
-                      location: "Chicago, IL",
-                      image: "/emily profile.jpeg",
-                      workExamples: ["/1-d2e3f802.jpg"]
-                    }
-                  ]}
-                  sortBy="rating"
-                  onSort={() => {}}
-                  onImageLoad={() => {}}
-                  loadedImages={new Set()}
-                  imageRef={() => {}}
-                />
+                <CreatorsList creators={[{
+                name: "Emily Johnson",
+                services: ["Photography", "Virtual Staging"],
+                price: 150,
+                rating: 4.9,
+                reviews: 127,
+                location: "New York, NY",
+                image: "/newemilyprofile.jpg",
+                workExamples: ["/1-d2e3f802.jpg"]
+              }, {
+                name: "Jane Cooper",
+                services: ["Video Tours", "Drone Footage"],
+                price: 200,
+                rating: 4.8,
+                reviews: 98,
+                location: "Los Angeles, CA",
+                image: "/janeprofile.png",
+                workExamples: ["/janesub.jpg", "/janesub2.png", "/janesub3.webp"]
+              }, {
+                name: "Michael Brown",
+                services: ["3D Tours", "Floor Plans"],
+                price: 175,
+                rating: 4.7,
+                reviews: 82,
+                location: "Chicago, IL",
+                image: "/emily profile.jpeg",
+                workExamples: ["/1-d2e3f802.jpg"]
+              }]} sortBy="rating" onSort={() => {}} onImageLoad={() => {}} loadedImages={new Set()} imageRef={() => {}} />
               </div>
             </div>
           </AuroraBackground>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default PreviewSearch;
