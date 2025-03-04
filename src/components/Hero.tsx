@@ -163,18 +163,6 @@ export function Hero() {
             }}
           >
             <WaitlistCTA className="mb-4" /> {/* Reduced margin */}
-            
-            {/* Move queue info closer to input for better visual connection */}
-            <div className="text-center text-sm text-gray-500">
-              <span className="flex items-center justify-center gap-1">
-                <span className="inline-flex">
-                  <span className="h-2 w-2 rounded-full bg-purple-500 opacity-75"></span>
-                  <span className="h-2 w-2 rounded-full bg-blue-500 -ml-1 opacity-75"></span>
-                  <span className="h-2 w-2 rounded-full bg-cyan-500 -ml-1 opacity-75"></span>
-                </span>
-                <span>2,165+ people joined • Queue: 2-3 weeks</span>
-              </span>
-            </div>
           </motion.div>
         </motion.section>
       </AuroraBackground>
