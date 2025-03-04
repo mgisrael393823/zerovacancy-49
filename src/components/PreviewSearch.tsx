@@ -5,7 +5,7 @@ import { CreatorsList } from './search/CreatorsList';
 import { AuroraBackground } from './ui/aurora-background';
 import { BorderBeam } from './ui/border-beam';
 import { GlowingEffect } from './ui/glowing-effect';
-import { Camera, Compass, Drone, Video3d, Video, DeviceLaptop } from 'lucide-react';
+import { Camera, Compass, Video, Laptop } from 'lucide-react';
 import { AnimatedGrid } from './ui/animated-grid';
 import { cn } from '@/lib/utils';
 
@@ -13,10 +13,10 @@ import { cn } from '@/lib/utils';
 const CreatorSpecialties = () => {
   const specialties = [
     { icon: <Camera className="h-5 w-5" />, label: "Photography" },
-    { icon: <Video3d className="h-5 w-5" />, label: "3D Tours" },
-    { icon: <Drone className="h-5 w-5" />, label: "Drone Footage" },
+    { icon: <Video className="h-5 w-5" />, label: "3D Tours" },
+    { icon: <Video className="h-5 w-5" />, label: "Drone Footage" },
     { icon: <Video className="h-5 w-5" />, label: "Video Tours" },
-    { icon: <DeviceLaptop className="h-5 w-5" />, label: "Virtual Staging" },
+    { icon: <Laptop className="h-5 w-5" />, label: "Virtual Staging" },
     { icon: <Compass className="h-5 w-5" />, label: "Floor Plans" },
   ];
   
@@ -58,7 +58,7 @@ const PreviewSearch = () => {
               borderWidth={1.5}
             />
             <GlowingEffect 
-              variant="purple" 
+              variant="default" 
               blur={8} 
               glow={true} 
               inactiveZone={0.6}
@@ -71,13 +71,7 @@ const PreviewSearch = () => {
           <AuroraBackground 
             className="min-h-0 w-full" 
             showRadialGradient={false}
-            colors={[
-              'rgba(147, 112, 219, 0.15)',
-              'rgba(138, 43, 226, 0.08)',
-              'rgba(106, 90, 205, 0.07)',
-            ]}
             blur={30}
-            speed="slow"
           >
             <div className="flex flex-col w-full relative z-10">
               {/* Title and subtitle removed as they are now above the component */}

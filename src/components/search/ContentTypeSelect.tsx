@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Camera, ChevronDown, Video, Video3d, Drone, Tablet, Compass } from 'lucide-react';
+import { Camera, ChevronDown, Video, Laptop, Compass } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -10,15 +10,15 @@ export const ContentTypeSelect = () => {
   // Array of content types with their respective icons
   const contentTypes = [
     { value: "professional-photography", label: "Professional Photography", icon: Camera },
-    { value: "virtual-tours", label: "Virtual Tours (360° POV)", icon: Video3d },
-    { value: "drone-video", label: "Drone Video Tours", icon: Drone },
+    { value: "virtual-tours", label: "Virtual Tours (360° POV)", icon: Video },
+    { value: "drone-video", label: "Drone Video Tours", icon: Video },
     { value: "property-highlight", label: "Property Highlight Videos", icon: Video },
     { value: "floor-plans", label: "Floor Plans", icon: Compass },
-    { value: "virtual-staging", label: "Virtual Staging", icon: Tablet },
+    { value: "virtual-staging", label: "Virtual Staging", icon: Laptop },
   ];
   
   const [selectedType, setSelectedType] = React.useState("");
-  const [selectedIcon, setSelectedIcon] = React.useState(Camera);
+  const [selectedIcon, setSelectedIcon] = React.useState<React.ElementType>(Camera);
   
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selected = e.target.value;
@@ -33,12 +33,9 @@ export const ContentTypeSelect = () => {
     }
   };
   
-  // Dynamically render the selected icon
-  const IconComponent = selectedIcon;
-  
   return (
     <div className="w-full sm:w-[40%] relative group">
-      <IconComponent className={cn(
+      <selectedIcon className={cn(
         "w-4 h-4 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2",
         "transition-all duration-200",
         "group-hover:text-indigo-500"
