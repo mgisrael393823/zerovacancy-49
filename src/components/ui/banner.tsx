@@ -103,7 +103,7 @@ export function MarketplaceBanner() {
       icon={<Sparkle className="h-4 w-4" />}
       action={
         <Button 
-          variant="warning" 
+          variant="secondary" 
           size="sm" 
           className="text-sm font-medium px-3 py-1 h-auto bg-yellow-400 hover:bg-yellow-500 text-gray-900"
         >
