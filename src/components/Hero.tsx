@@ -38,11 +38,14 @@ export function Hero() {
           className={cn(
             "flex items-center justify-center flex-col", 
             "px-4 sm:px-6", 
-            "py-[24px] sm:py-[40px]", // Reduced padding
-            "my-[16px] sm:my-[32px]", // Reduced margin
-            "min-h-fit sm:min-h-[60vh]", // Reduced min-height
+            // Reduced padding and margins
+            "py-[24px] sm:py-[40px]", 
+            "my-[16px] sm:my-[24px]", 
+            // Reduced height on desktop
+            "min-h-fit sm:min-h-[50vh]", 
             "relative z-10", 
-            "gap-3 sm:gap-4", // Reduced gap
+            // Reduced gap between elements
+            "gap-3 sm:gap-4",
             "touch-manipulation"
           )} 
           initial={{
@@ -70,16 +73,18 @@ export function Hero() {
               duration: 0.3,
               delay: 0.1
             }} 
-            className="flex gap-4 sm:gap-5 flex-col max-w-10xl mx-auto w-full px-[3px]" // Reduced gap
+            // Reduced max width and gap
+            className="flex gap-4 sm:gap-5 flex-col max-w-6xl mx-auto w-full px-[3px]"
           >
             <h1 className="tracking-tight leading-[1.1] text-center font-bold">
               <span 
                 className={cn(
                   "text-primary inline font-light", 
-                  "text-4xl sm:text-5xl lg:text-6xl", 
+                  // Slightly reduced text size
+                  "text-3xl sm:text-4xl lg:text-5xl", 
                   "tracking-[-0.02em]", 
                   "bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-black", 
-                  "block sm:inline-block mb-1 sm:mb-0" // Reduced margin
+                  "block sm:inline-block mb-1 sm:mb-0"
                 )}
               >
                 Property Content that
@@ -87,7 +92,8 @@ export function Hero() {
               <span 
                 role="text" 
                 aria-label={`Property Content that ${titles[titleNumber]}`} 
-                className="relative flex w-full justify-center h-[1.5em] sm:h-[1.6em] md:h-[1.5em] lg:h-[1.3em] overflow-hidden mt-1 sm:mt-2" // Reduced height and margin
+                // Reduced height of the animated text container
+                className="relative flex w-full justify-center h-[1.4em] sm:h-[1.5em] md:h-[1.4em] lg:h-[1.2em] overflow-hidden mt-1 sm:mt-2"
               >
                 {titles.map((title, index) => (
                   <motion.span 
@@ -95,7 +101,8 @@ export function Hero() {
                     className={cn(
                       "absolute font-playfair tracking-[-0.02em] bg-clip-text text-transparent", 
                       "bg-gradient-to-r from-purple-700 via-blue-700 to-cyan-700", 
-                      titleNumber === index && "text-5xl sm:text-6xl lg:text-7xl"
+                      // Reduced font size
+                      titleNumber === index && "text-4xl sm:text-5xl lg:text-6xl"
                     )} 
                     initial={{
                       opacity: 0,
@@ -126,17 +133,18 @@ export function Hero() {
 
             <div 
               className={cn(
-                "text-sm sm:text-lg lg:text-xl", 
-                "leading-[1.5]", // Tighter leading
+                "text-sm sm:text-base lg:text-lg", 
+                "leading-[1.5]", 
                 "tracking-wide", 
                 "text-gray-700", 
                 "text-center", 
-                "max-w-[650px]", 
+                "max-w-[550px]", 
                 "mx-auto", 
-                "px-4 sm:px-6", 
+                "px-2 sm:px-4", 
                 "[word-spacing:0.12em] sm:[word-spacing:0.16em]", 
                 "relative z-10", 
-                "mt-1 mb-0" // Reduced margin
+                // Reduced margin
+                "mt-1 mb-0"
               )}
             >
               Connect with expert content creators for your next project. Our AI-powered platform matches you with the perfect professional for your needs and budget.
@@ -146,8 +154,9 @@ export function Hero() {
           <motion.div 
             className={cn(
               "w-full", 
-              "mt-4 sm:mt-6", // Reduced margin
-              "px-4 sm:px-6"
+              // Reduced top margin
+              "mt-5 sm:mt-6", 
+              "px-3 sm:px-4"
             )} 
             initial={{
               opacity: 0,
@@ -159,10 +168,11 @@ export function Hero() {
             } : {}}
             transition={{
               duration: 0.3,
-              delay: 0.3
+              delay: 0.2
             }}
           >
-            <WaitlistCTA className="mb-4" /> {/* Reduced margin */}
+            {/* Reduced bottom margin */}
+            <WaitlistCTA className="mb-4" />
           </motion.div>
         </motion.section>
       </AuroraBackground>
