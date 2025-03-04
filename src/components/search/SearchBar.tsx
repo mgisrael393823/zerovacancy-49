@@ -23,11 +23,11 @@ export const SearchBar: React.FC<SearchBarProps> = ({ value = '', onLocationSele
       <div className="flex flex-col gap-3">
         <div className={cn(
           "relative flex flex-col sm:flex-row w-full rounded-lg sm:rounded-xl overflow-hidden",
-          "sm:shadow-[0_3px_16px_rgba(0,0,0,0.08)]",
-          "border border-gray-300 sm:border-gray-200",
+          "sm:shadow-[0_4px_20px_rgba(0,0,0,0.08)]",
+          "border border-gray-300 sm:border-purple-100/60",
           "bg-white divide-y sm:divide-y-0 sm:divide-x divide-gray-200",
           "transition-all duration-300",
-          "hover:shadow-[0_5px_20px_rgba(0,0,0,0.1)]"
+          "hover:shadow-[0_6px_24px_rgba(120,80,200,0.15)]"
         )}>
           <ContentTypeSelect />
           <LocationInput value={value} onLocationSelect={onLocationSelect} />
@@ -39,13 +39,14 @@ export const SearchBar: React.FC<SearchBarProps> = ({ value = '', onLocationSele
           <Button 
             className={cn(
               "w-full h-11",
-              "bg-primary hover:bg-primary/90 text-white",
+              "bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white",
               "shadow-sm hover:shadow-md transition-all duration-200",
               "text-sm rounded-lg",
               "flex items-center justify-center"
             )}
           >
-            <Search className="w-5 h-5" />
+            <Search className="w-5 h-5 mr-2" />
+            <span>Find Creators</span>
           </Button>
         </div>
 

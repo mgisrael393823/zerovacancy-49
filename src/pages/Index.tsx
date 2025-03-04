@@ -133,9 +133,9 @@ const Index = () => {
                 <HowItWorksSection />
               </Suspense>
               
-              {/* Featured Creators Section - Now inside How It Works */}
+              {/* Featured Creators Section - Now with updated styling */}
               {isLoaded && (
-                <div className="max-w-7xl mx-auto pt-8 sm:pt-12 pb-6">
+                <div className="max-w-7xl mx-auto pt-10 sm:pt-16 pb-6 px-4 sm:px-6 lg:px-8">
                   <Suspense fallback={<LoadingFallback />}>
                     <PreviewSearch />
                   </Suspense>
