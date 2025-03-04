@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Header from '../components/Header';
 import { Hero } from '../components/Hero';
@@ -131,22 +130,18 @@ const Index = () => {
               <Suspense fallback={<LoadingFallback />}>
                 <HowItWorksSection />
               </Suspense>
-            </div>
-          </div>
-          
-          {/* Featured Creators Section - Only render when needed */}
-          {isLoaded && (
-            <div className="bg-white py-10 sm:py-16 lg:py-20 border-b border-gray-100 w-full">
-              <div className="max-w-7xl mx-auto">
-                <div id="search" className="relative overflow-hidden w-full">
+              
+              {/* Featured Creators Section - Now inside How It Works */}
+              {isLoaded && (
+                <div className="max-w-7xl mx-auto pt-8 sm:pt-12">
                   <Suspense fallback={<LoadingFallback />}>
                     <PreviewSearch />
                   </Suspense>
                 </div>
-              </div>
+              )}
             </div>
-          )}
-
+          </div>
+          
           {/* Professional Content Creation Services */}
           {isLoaded && (
             <div className="relative py-10 sm:py-16 lg:py-20 overflow-hidden bg-[#F1F0FB] border-t border-b border-gray-100 w-full">
