@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Header from '../components/Header';
 import { Hero } from '../components/Hero';
@@ -20,54 +19,37 @@ const FeaturesSectionWithHoverEffects = lazy(() => import('@/components/Features
 const Pricing = lazy(() => import('@/components/Pricing'));
 
 // Loading fallback component
-const LoadingFallback = () => (
-  <div className="flex items-center justify-center p-12">
+const LoadingFallback = () => <div className="flex items-center justify-center p-12">
     <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
-  </div>
-);
-
+  </div>;
 const Index = () => {
   const [showBanner, setShowBanner] = useState(false);
   const [showGlowDialog, setShowGlowDialog] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-
   useEffect(() => {
     // Check if user has visited before
     const hasVisited = localStorage.getItem('hasVisited');
     setShowGlowDialog(!hasVisited);
-    
+
     // Only show banner after initial render to prevent layout shift
     setShowBanner(true);
-    
     if (!hasVisited) {
       localStorage.setItem('hasVisited', 'true');
     }
-    
+
     // Mark as loaded after a short delay
     const timer = setTimeout(() => {
       setIsLoaded(true);
     }, 100);
-    
     return () => clearTimeout(timer);
   }, []);
-
   const handleTryNowClick = () => {
     setShowGlowDialog(true);
   };
-
-  return (
-    <div className="flex flex-col min-h-screen w-full max-w-full overflow-x-hidden">
+  return <div className="flex flex-col min-h-screen w-full max-w-full overflow-x-hidden">
       <Header />
-      {showBanner && (
-        <div className="relative">
-          <Banner 
-            variant="purple" 
-            size="lg" 
-            action={
-              <Button 
-                variant="secondary" 
-                size="sm" 
-                className="
+      {showBanner && <div className="relative">
+          <Banner variant="purple" size="lg" action={<Button variant="secondary" size="sm" className="
                   flex text-xs sm:text-sm items-center 
                   whitespace-nowrap px-2 py-1.5 sm:px-5 sm:py-2.5
                   bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold
@@ -78,33 +60,21 @@ const Index = () => {
                   touch-manipulation
                   shadow-[0_2px_8px_rgba(0,0,0,0.1)]
                   text-[11px] sm:text-xs md:text-sm
-                " 
-                onClick={handleTryNowClick}
-              >
+                " onClick={handleTryNowClick}>
                 Get Early Access
-              </Button>
-            } 
-            layout="complex" 
-            isClosable 
-            onClose={() => setShowBanner(false)} 
-            className="animate-in fade-in slide-in-from-top duration-500 relative overflow-hidden min-h-[2.75rem] sm:min-h-[3.5rem] my-0 py-0"
-          >
+              </Button>} layout="complex" isClosable onClose={() => setShowBanner(false)} className="animate-in fade-in slide-in-from-top duration-500 relative overflow-hidden min-h-[2.75rem] sm:min-h-[3.5rem] my-0 py-0">
             <div className="flex items-center justify-start gap-1 sm:gap-4 relative z-10">
               <Star className="h-3 w-3 sm:h-6 sm:w-6 text-yellow-300 animate-pulse" />
-              <AnimatedShinyText 
-                className="
+              <AnimatedShinyText className="
                   text-xs sm:text-base font-bold inline-block
                   text-white relative z-10 rounded
                   px-0 sm:px-1 tracking-wide
-                " 
-                shimmerWidth={200}
-              >
+                " shimmerWidth={200}>
                 Join the AI-powered revolution!
               </AnimatedShinyText>
             </div>
           </Banner>
-        </div>
-      )}
+        </div>}
 
       <main className="flex-1 pb-16 sm:pb-0 w-full overflow-x-hidden">
         {/* Hero Section */}
@@ -116,17 +86,7 @@ const Index = () => {
         <div className="space-y-0 w-full">
           {/* How It Works Section */}
           <div id="how-it-works" className="relative bg-[#f8f9ff] py-8 sm:py-16 lg:py-20 overflow-hidden border-t border-b border-gray-100 w-full">
-            <Waves 
-              lineColor="rgba(147, 112, 219, 0.2)" 
-              backgroundColor="#f8f9ff"
-              waveSpeedX={0.01}
-              waveSpeedY={0.008}
-              waveAmpX={25}
-              waveAmpY={12}
-              xGap={15}
-              yGap={30}
-              className="opacity-70"
-            />
+            <Waves lineColor="rgba(147, 112, 219, 0.2)" backgroundColor="#f8f9ff" waveSpeedX={0.01} waveSpeedY={0.008} waveAmpX={25} waveAmpY={12} xGap={15} yGap={30} className="opacity-70" />
             <Spotlight className="from-blue-500/20 via-cyan-500/20 to-teal-500/20" size={350} />
             <div className="relative z-10">
               <Suspense fallback={<LoadingFallback />}>
@@ -134,19 +94,16 @@ const Index = () => {
               </Suspense>
               
               {/* Featured Creators Section - Now with updated styling */}
-              {isLoaded && (
-                <div className="max-w-7xl mx-auto pt-10 sm:pt-16 pb-6 px-4 sm:px-6 lg:px-8">
+              {isLoaded && <div className="max-w-7xl mx-auto pt-10 sm:pt-16 pb-6 px-4 sm:px-6 lg:px-8 bg-zinc-700">
                   <Suspense fallback={<LoadingFallback />}>
                     <PreviewSearch />
                   </Suspense>
-                </div>
-              )}
+                </div>}
             </div>
           </div>
           
           {/* Professional Content Creation Services */}
-          {isLoaded && (
-            <div className="relative py-10 sm:py-16 lg:py-20 overflow-hidden bg-[#F1F0FB] border-t border-b border-gray-100 w-full">
+          {isLoaded && <div className="relative py-10 sm:py-16 lg:py-20 overflow-hidden bg-[#F1F0FB] border-t border-b border-gray-100 w-full">
               <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px] opacity-40"></div>
               <Spotlight className="from-emerald-500/20 via-teal-500/20 to-cyan-500/20" size={350} />
               <div className="relative z-10 max-w-7xl mx-auto">
@@ -154,12 +111,10 @@ const Index = () => {
                   <FeaturesSectionWithHoverEffects />
                 </Suspense>
               </div>
-            </div>
-          )}
+            </div>}
 
           {/* Pricing Section */}
-          {isLoaded && (
-            <div id="pricing" className="relative py-10 sm:py-16 lg:py-20 overflow-hidden bg-white border-b border-gray-100 w-full">
+          {isLoaded && <div id="pricing" className="relative py-10 sm:py-16 lg:py-20 overflow-hidden bg-white border-b border-gray-100 w-full">
               <div className="absolute inset-0 bg-[linear-gradient(to_right,#f3f3f3_1px,transparent_1px),linear-gradient(to_bottom,#f3f3f3_1px,transparent_1px)] [background-size:20px_20px] opacity-30"></div>
               <Spotlight className="from-indigo-500/20 via-purple-500/20 to-pink-500/20" size={350} />
               <div className="relative z-10 max-w-7xl mx-auto">
@@ -167,8 +122,7 @@ const Index = () => {
                   <Pricing />
                 </Suspense>
               </div>
-            </div>
-          )}
+            </div>}
 
           {/* Final CTA Section */}
           <div className="relative py-14 sm:py-20 lg:py-24 overflow-hidden bg-gradient-to-b from-white to-[#F6F6F7] w-full">
@@ -183,8 +137,6 @@ const Index = () => {
       </main>
       <BottomNav />
       <GlowDialog open={showGlowDialog} onOpenChange={setShowGlowDialog} />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
