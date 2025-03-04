@@ -33,9 +33,12 @@ export const ContentTypeSelect = () => {
     }
   };
   
+  // We need to render the icon component correctly using the React.ElementType
+  const SelectedIcon = selectedIcon;
+  
   return (
     <div className="w-full sm:w-[40%] relative group">
-      <selectedIcon className={cn(
+      <SelectedIcon className={cn(
         "w-4 h-4 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2",
         "transition-all duration-200",
         "group-hover:text-indigo-500"

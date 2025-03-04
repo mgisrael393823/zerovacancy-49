@@ -71,7 +71,6 @@ const PreviewSearch = () => {
           <AuroraBackground 
             className="min-h-0 w-full" 
             showRadialGradient={false}
-            blur={30}
           >
             <div className="flex flex-col w-full relative z-10">
               {/* Title and subtitle removed as they are now above the component */}
