@@ -38,11 +38,11 @@ export function Hero() {
           className={cn(
             "flex items-center justify-center flex-col", 
             "px-4 sm:px-6", 
-            "py-[40px] sm:py-[64px]", 
-            "my-[32px] sm:my-[48px]", 
-            "min-h-fit sm:min-h-[70vh]", 
+            "py-[24px] sm:py-[40px]", // Reduced padding
+            "my-[16px] sm:my-[32px]", // Reduced margin
+            "min-h-fit sm:min-h-[60vh]", // Reduced min-height
             "relative z-10", 
-            "gap-4 sm:gap-6",
+            "gap-3 sm:gap-4", // Reduced gap
             "touch-manipulation"
           )} 
           initial={{
@@ -70,7 +70,7 @@ export function Hero() {
               duration: 0.3,
               delay: 0.1
             }} 
-            className="flex gap-6 sm:gap-8 flex-col max-w-10xl mx-auto w-full px-[3px]"
+            className="flex gap-4 sm:gap-5 flex-col max-w-10xl mx-auto w-full px-[3px]" // Reduced gap
           >
             <h1 className="tracking-tight leading-[1.1] text-center font-bold">
               <span 
@@ -79,7 +79,7 @@ export function Hero() {
                   "text-4xl sm:text-5xl lg:text-6xl", 
                   "tracking-[-0.02em]", 
                   "bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-black", 
-                  "block sm:inline-block mb-2 sm:mb-0"
+                  "block sm:inline-block mb-1 sm:mb-0" // Reduced margin
                 )}
               >
                 Property Content that
@@ -87,7 +87,7 @@ export function Hero() {
               <span 
                 role="text" 
                 aria-label={`Property Content that ${titles[titleNumber]}`} 
-                className="relative flex w-full justify-center h-[1.6em] sm:h-[1.8em] md:h-[1.6em] lg:h-[1.4em] overflow-hidden mt-2 sm:mt-3"
+                className="relative flex w-full justify-center h-[1.5em] sm:h-[1.6em] md:h-[1.5em] lg:h-[1.3em] overflow-hidden mt-1 sm:mt-2" // Reduced height and margin
               >
                 {titles.map((title, index) => (
                   <motion.span 
@@ -127,7 +127,7 @@ export function Hero() {
             <div 
               className={cn(
                 "text-sm sm:text-lg lg:text-xl", 
-                "leading-[1.6]", 
+                "leading-[1.5]", // Tighter leading
                 "tracking-wide", 
                 "text-gray-700", 
                 "text-center", 
@@ -136,7 +136,7 @@ export function Hero() {
                 "px-4 sm:px-6", 
                 "[word-spacing:0.12em] sm:[word-spacing:0.16em]", 
                 "relative z-10", 
-                "mt-2 mb-0"
+                "mt-1 mb-0" // Reduced margin
               )}
             >
               Connect with expert content creators for your next project. Our AI-powered platform matches you with the perfect professional for your needs and budget.
@@ -146,7 +146,7 @@ export function Hero() {
           <motion.div 
             className={cn(
               "w-full", 
-              "mt-8", 
+              "mt-4 sm:mt-6", // Reduced margin
               "px-4 sm:px-6"
             )} 
             initial={{
@@ -162,7 +162,19 @@ export function Hero() {
               delay: 0.3
             }}
           >
-            <WaitlistCTA className="mb-10" />
+            <WaitlistCTA className="mb-4" /> {/* Reduced margin */}
+            
+            {/* Move queue info closer to input for better visual connection */}
+            <div className="text-center text-sm text-gray-500">
+              <span className="flex items-center justify-center gap-1">
+                <span className="inline-flex">
+                  <span className="h-2 w-2 rounded-full bg-purple-500 opacity-75"></span>
+                  <span className="h-2 w-2 rounded-full bg-blue-500 -ml-1 opacity-75"></span>
+                  <span className="h-2 w-2 rounded-full bg-cyan-500 -ml-1 opacity-75"></span>
+                </span>
+                <span>2,165+ people joined • Queue: 2-3 weeks</span>
+              </span>
+            </div>
           </motion.div>
         </motion.section>
       </AuroraBackground>
