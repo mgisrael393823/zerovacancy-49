@@ -69,23 +69,22 @@ export function Banner({
       <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[length:20px_20px] z-0"></div>
       
       <div className="
-        flex items-center justify-between w-full
-        flex-row sm:flex-nowrap
+        flex items-center justify-between gap-3 sm:gap-6 w-full
+        flex-wrap sm:flex-nowrap
         px-2 sm:px-4
-        py-1.5 sm:py-0
         relative z-10
       ">
-        <div className="flex items-center justify-start text-left gap-1.5 sm:gap-3 max-w-[65%] sm:max-w-none">
+        <div className="flex items-center gap-2 sm:gap-3 justify-center text-center mx-auto sm:mx-0 mb-1 sm:mb-0">
           {icon && (
-            <span className="flex-shrink-0">
+            <span className="flex-shrink-0 hidden sm:block">
               {icon}
             </span>
           )}
-          <span className="font-medium text-xs sm:text-base px-0 sm:px-1 line-clamp-2 sm:line-clamp-none">{children}</span>
+          <span className="font-medium text-sm sm:text-base px-1">{children}</span>
         </div>
 
         {action && (
-          <div className="flex-shrink-0 ml-auto">
+          <div className="flex-shrink-0 mx-auto sm:mx-0">
             <div className="scale-100 transform hover:scale-105 transition-all duration-300">
               {action}
             </div>

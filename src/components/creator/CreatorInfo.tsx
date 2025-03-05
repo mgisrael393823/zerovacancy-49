@@ -16,8 +16,8 @@ interface CreatorInfoProps {
 export const CreatorInfo: React.FC<CreatorInfoProps> = ({ creator }) => {
   return (
     <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 text-white select-text">
-      {/* Semi-transparent background with properly constrained dimensions */}
-      <div className="absolute inset-0 -m-2 bg-black/40 backdrop-blur-[2px] rounded-lg z-0 w-fit max-w-[calc(100%-1rem)]"></div>
+      {/* Add a semi-transparent background to ensure text is visible without the gradient overlay */}
+      <div className="absolute inset-0 -m-2 bg-black/40 backdrop-blur-[2px] rounded-lg z-0"></div>
       
       <div className="relative z-10">
         <div className="flex items-center gap-2 sm:gap-2.5">
