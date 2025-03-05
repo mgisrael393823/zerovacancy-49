@@ -1,53 +1,39 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+// src/pages/Index.tsx
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
-import { Hero } from '../components/Hero';
+import { Hero } from '../components/hero/Hero';
 import CallToActionSection from '../components/CallToActionSection';
 import Footer from '../components/Footer';
+import OptimizedHowItWorks from '../components/how-it-works/OptimizedHowItWorks';
 import { BottomNav } from '../components/navigation/BottomNav';
 import { Banner } from '@/components/ui/banner';
 import { Button } from '@/components/ui/button';
 import { Star } from 'lucide-react';
 import { GlowDialog } from '@/components/ui/glow-dialog';
-import { Spotlight } from '@/components/ui/spotlight';
+import { OptimizedSpotlight } from '@/components/ui/optimized-spotlight';
 import { AnimatedShinyText } from '@/components/ui/animated-shiny-text';
-import { Waves } from '@/components/ui/waves';
+import { FeaturesSectionWithHoverEffects } from '@/components/features/Features';
+import Pricing from '@/components/Pricing';
+import PreviewSearch from '@/components/PreviewSearch';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { cn } from '@/lib/utils';
+import { GradientBlobBackground } from '@/components/ui/gradient-blob-background';
 
-// Lazy load heavy components
-const PreviewSearch = lazy(() => import('../components/PreviewSearch'));
-const HowItWorksSection = lazy(() => import('../components/HowItWorksSection'));
-const Features = lazy(() => import('../components/Features'));
-const Pricing = lazy(() => import('@/components/Pricing'));
-
-// Loading fallback component
-const LoadingFallback = () => (
-  <div className="flex items-center justify-center p-12">
-    <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
-  </div>
-);
-
+/**
+ * Main landing page component with performance optimizations and improved spacing
+ */
 const Index = () => {
-  const [showBanner, setShowBanner] = useState(false);
+  const [showBanner, setShowBanner] = useState(true);
   const [showGlowDialog, setShowGlowDialog] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const isMobile = useIsMobile();
 
+  // Initialize local storage and dialog state
   useEffect(() => {
-    // Check if user has visited before
     const hasVisited = localStorage.getItem('hasVisited');
     setShowGlowDialog(!hasVisited);
-    
-    // Only show banner after initial render to prevent layout shift
-    setShowBanner(true);
-    
     if (!hasVisited) {
       localStorage.setItem('hasVisited', 'true');
     }
-    
-    // Mark as loaded after a short delay
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 100);
-    
-    return () => clearTimeout(timer);
   }, []);
 
   const handleTryNowClick = () => {
@@ -57,8 +43,10 @@ const Index = () => {
   return (
     <div className="flex flex-col min-h-screen w-full max-w-full overflow-x-hidden">
       <Header />
+      
+      {/* Enhanced Banner - Improved animation and spacing */}
       {showBanner && (
-        <div className="relative">
+        <div className="relative z-20">
           <Banner 
             variant="purple" 
             size="lg" 
@@ -66,20 +54,21 @@ const Index = () => {
               <Button 
                 variant="secondary" 
                 size="sm" 
-                className="
-                  flex text-xs sm:text-sm items-center 
-                  whitespace-nowrap px-3 py-2 sm:px-5 sm:py-2.5
-                  bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold
-                  border-2 border-amber-300
-                  transition-all duration-200
-                  min-h-[2.25rem] sm:min-h-[2.5rem]
-                  min-w-[8rem] sm:min-w-[9rem]
-                  touch-manipulation
-                  shadow-[0_2px_10px_rgba(0,0,0,0.15)]
-                " 
+                className={cn(
+                  "flex text-xs sm:text-sm items-center whitespace-nowrap", 
+                  isMobile 
+                    ? "px-2 py-1.5 min-w-[7rem] min-h-[2rem]" 
+                    : "px-3 py-2 sm:px-5 sm:py-2.5 min-w-[8rem] sm:min-w-[9rem] min-h-[2.25rem] sm:min-h-[2.5rem]", 
+                  "bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold", 
+                  "border-2 border-amber-300", 
+                  "transition-all duration-200", 
+                  "touch-manipulation", 
+                  "shadow-[0_2px_10px_rgba(0,0,0,0.15)]",
+                  "active:scale-95"
+                )} 
                 onClick={handleTryNowClick}
               >
-                Get Early Access
+                {isMobile ? "Try Now" : "Get Early Access"}
               </Button>
             } 
             layout="complex" 
@@ -87,14 +76,14 @@ const Index = () => {
             onClose={() => setShowBanner(false)} 
             className="animate-in fade-in slide-in-from-top duration-500 relative overflow-hidden min-h-[3.25rem] sm:min-h-[3.5rem] my-0 py-0"
           >
-            <div className="flex items-center justify-center gap-3 sm:gap-4 relative z-10">
+            <div className="flex items-center justify-left gap-3 sm:gap-4 relative z-10">
               <Star className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-300 animate-pulse" />
               <AnimatedShinyText 
-                className="
-                  text-sm sm:text-base font-bold inline-block
-                  text-white relative z-10 rounded
-                  px-1 tracking-wide
-                " 
+                className={cn(
+                  "text-sm sm:text-base font-bold inline-block", 
+                  "text-white relative z-10 rounded", 
+                  "px-1 tracking-wide"
+                )} 
                 shimmerWidth={200}
               >
                 Join the AI-powered revolution in property management!
@@ -104,75 +93,79 @@ const Index = () => {
         </div>
       )}
 
-      <main className="flex-1 pb-16 sm:pb-0 w-full overflow-x-hidden">
-        {/* Hero Section */}
+      <main className="flex-1 pb-16 sm:pb-0 w-full overflow-x-hidden bg-gradient-to-b from-white to-purple-50/10">
+        {/* Hero Section - Enhanced with better responsive spacing */}
         <div className="relative overflow-hidden">
-          <Spotlight className="from-purple-500/20 via-violet-500/20 to-blue-500/20" size={400} />
-          <Hero />
+          <OptimizedSpotlight 
+            className="from-purple-500/20 via-violet-500/20 to-blue-500/20" 
+            size={isMobile ? 300 : 400} 
+          />
+          <div className="py-4 sm:py-6 md:py-8">
+            <Hero />
+          </div>
         </div>
 
+        {/* Improved spacing between sections with consistent rhythm */}
         <div className="space-y-0 w-full">
-          {/* How It Works Section */}
-          <div id="how-it-works" className="relative bg-[#f8f9ff] py-8 sm:py-16 lg:py-20 overflow-hidden border-t border-b border-gray-100 w-full">
-            <Waves 
-              lineColor="rgba(147, 112, 219, 0.2)" 
-              backgroundColor="#f8f9ff"
-              waveSpeedX={0.01}
-              waveSpeedY={0.008}
-              waveAmpX={25}
-              waveAmpY={12}
-              xGap={15}
-              yGap={30}
-              className="opacity-70"
+          {/* How It Works Section - Refined borders and shadows */}
+          <section 
+            id="how-it-works" 
+            className="relative overflow-hidden border-y border-gray-100/80 w-full my-8 sm:my-12"
+          >
+            <OptimizedSpotlight 
+              className="from-blue-500/20 via-cyan-500/20 to-teal-500/20" 
+              size={isMobile ? 250 : 350} 
             />
-            <Spotlight className="from-blue-500/20 via-cyan-500/20 to-teal-500/20" size={350} />
-            <div className="relative z-10">
-              <Suspense fallback={<LoadingFallback />}>
-                <HowItWorksSection />
-              </Suspense>
+            <div className="relative z-10 py-2 sm:py-4">
+              <OptimizedHowItWorks />
             </div>
-          </div>
+          </section>
           
-          {/* Featured Creators Section - Only render when needed */}
-          {isLoaded && (
-            <div className="bg-white py-10 sm:py-16 lg:py-20 border-b border-gray-100 w-full">
-              <div className="max-w-7xl mx-auto">
-                <div id="search" className="relative overflow-hidden w-full">
-                  <Suspense fallback={<LoadingFallback />}>
-                    <PreviewSearch />
-                  </Suspense>
+          {/* Search Section - Improved height constraints and background */}
+          <section 
+            id="find-creators" 
+            className="relative overflow-hidden w-full border-y border-gray-100/80 my-8 sm:my-12"
+          >
+            <GradientBlobBackground 
+              className={cn(
+                "py-8 sm:py-12 md:py-16",
+                isMobile ? "min-h-[550px]" : "min-h-[600px] md:min-h-[650px]"
+              )}
+            >
+              <div className="max-w-7xl mx-auto relative z-10">
+                <div className="text-center mb-6 sm:mb-8 px-4 sm:px-6 lg:px-8">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 font-jakarta tracking-tight">
+                    Find Your Perfect Creator
+                  </h2>
+                  <p className="max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-gray-600 font-inter">
+                    Connect with skilled professionals who can showcase your property in its best light
+                  </p>
                 </div>
+                <PreviewSearch />
               </div>
-            </div>
-          )}
+            </GradientBlobBackground>
+          </section>
+          
+          {/* Features Section - Better rhythm and background contrast */}
+          <section 
+            className="py-10 sm:py-14 lg:py-16 border-y border-gray-100/80 w-full bg-white/80 backdrop-blur-sm my-8 sm:my-12"
+          >
+            <FeaturesSectionWithHoverEffects />
+          </section>
 
-          {/* Professional Content Creation Services */}
-          <div className="relative py-10 sm:py-16 lg:py-20 overflow-hidden bg-[#F1F0FB] border-t border-b border-gray-100 w-full">
-            <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px] opacity-40"></div>
-            <Spotlight className="from-emerald-500/20 via-teal-500/20 to-cyan-500/20" size={350} />
-            <div className="relative z-10 max-w-7xl mx-auto">
-              <Suspense fallback={<LoadingFallback />}>
-                <Features />
-              </Suspense>
-            </div>
+          {/* Pricing Section - Better integration with overall flow */}
+          <div className="border-y border-gray-100/80 bg-white/50 my-8 sm:my-12">
+            <Pricing />
           </div>
 
-          {/* Pricing Section */}
-          {isLoaded && (
-            <div id="pricing" className="relative py-10 sm:py-16 lg:py-20 overflow-hidden bg-white border-b border-gray-100 w-full">
-              <div className="absolute inset-0 bg-[linear-gradient(to_right,#f3f3f3_1px,transparent_1px),linear-gradient(to_bottom,#f3f3f3_1px,transparent_1px)] [background-size:20px_20px] opacity-30"></div>
-              <Spotlight className="from-indigo-500/20 via-purple-500/20 to-pink-500/20" size={350} />
-              <div className="relative z-10 max-w-7xl mx-auto">
-                <Suspense fallback={<LoadingFallback />}>
-                  <Pricing />
-                </Suspense>
-              </div>
-            </div>
-          )}
-
-          {/* Final CTA Section */}
-          <div className="relative py-14 sm:py-20 lg:py-24 overflow-hidden bg-gradient-to-b from-white to-[#F6F6F7] w-full">
-            <Spotlight className="from-purple-500/20 via-pink-500/20 to-red-500/20" size={350} />
+          {/* Final CTA Section - Enhanced visual prominence */}
+          <div 
+            className="relative py-12 sm:py-16 lg:py-20 overflow-hidden bg-gradient-to-b from-white to-[#F6F6F7] w-full mt-8 sm:mt-12 mb-0 border-t border-gray-100/80"
+          >
+            <OptimizedSpotlight 
+              className="from-purple-500/20 via-pink-500/20 to-red-500/20" 
+              size={isMobile ? 250 : 350} 
+            />
             <div className="relative z-10 max-w-7xl mx-auto">
               <CallToActionSection />
             </div>
@@ -181,7 +174,11 @@ const Index = () => {
 
         <Footer />
       </main>
+      
+      {/* Mobile Navigation */}
       <BottomNav />
+      
+      {/* Dialog */}
       <GlowDialog open={showGlowDialog} onOpenChange={setShowGlowDialog} />
     </div>
   );
