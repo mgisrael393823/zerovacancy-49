@@ -1,4 +1,4 @@
-```jsx
+
 import React, { useState, useEffect } from 'react';
 import { Search, Users, FileCheck, Calendar, Check, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -354,4 +354,3 @@ const HowItWorksSection = () => {
 };
 
 export default HowItWorksSection;
-```
