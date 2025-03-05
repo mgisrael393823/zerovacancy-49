@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Header from '../components/Header';
 import { Hero } from '../components/Hero';
@@ -16,7 +15,7 @@ import { Waves } from '@/components/ui/waves';
 // Lazy load heavy components
 const PreviewSearch = lazy(() => import('../components/PreviewSearch'));
 const HowItWorksSection = lazy(() => import('../components/HowItWorksSection'));
-const FeaturesSectionWithHoverEffects = lazy(() => import('../components/Features'));
+const Features = lazy(() => import('../components/Features'));
 const Pricing = lazy(() => import('@/components/Pricing'));
 
 // Loading fallback component
@@ -153,7 +152,7 @@ const Index = () => {
             <Spotlight className="from-emerald-500/20 via-teal-500/20 to-cyan-500/20" size={350} />
             <div className="relative z-10 max-w-7xl mx-auto">
               <Suspense fallback={<LoadingFallback />}>
-                <FeaturesSectionWithHoverEffects />
+                <Features />
               </Suspense>
             </div>
           </div>
