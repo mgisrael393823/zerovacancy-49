@@ -16,7 +16,7 @@ import { Waves } from '@/components/ui/waves';
 // Lazy load heavy components
 const PreviewSearch = lazy(() => import('../components/PreviewSearch'));
 const HowItWorksSection = lazy(() => import('../components/HowItWorksSection'));
-const FeaturesSectionWithHoverEffects = lazy(() => import('@/components/Features'));
+const FeaturesSectionWithHoverEffects = lazy(() => import('../components/Features'));
 const Pricing = lazy(() => import('@/components/Pricing'));
 
 // Loading fallback component
@@ -148,17 +148,15 @@ const Index = () => {
           )}
 
           {/* Professional Content Creation Services */}
-          {isLoaded && (
-            <div className="relative py-10 sm:py-16 lg:py-20 overflow-hidden bg-[#F1F0FB] border-t border-b border-gray-100 w-full">
-              <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px] opacity-40"></div>
-              <Spotlight className="from-emerald-500/20 via-teal-500/20 to-cyan-500/20" size={350} />
-              <div className="relative z-10 max-w-7xl mx-auto">
-                <Suspense fallback={<LoadingFallback />}>
-                  <FeaturesSectionWithHoverEffects />
-                </Suspense>
-              </div>
+          <div className="relative py-10 sm:py-16 lg:py-20 overflow-hidden bg-[#F1F0FB] border-t border-b border-gray-100 w-full">
+            <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px] opacity-40"></div>
+            <Spotlight className="from-emerald-500/20 via-teal-500/20 to-cyan-500/20" size={350} />
+            <div className="relative z-10 max-w-7xl mx-auto">
+              <Suspense fallback={<LoadingFallback />}>
+                <FeaturesSectionWithHoverEffects />
+              </Suspense>
             </div>
-          )}
+          </div>
 
           {/* Pricing Section */}
           {isLoaded && (
