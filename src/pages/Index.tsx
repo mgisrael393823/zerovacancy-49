@@ -2,10 +2,10 @@
 // src/pages/Index.tsx
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
-import Hero from '../components/Hero'; // Updated import path
+import Hero from '../components/Hero'; 
 import CallToActionSection from '../components/CallToActionSection';
 import Footer from '../components/Footer';
-import OptimizedHowItWorks from '../components/how-it-works/OptimizedHowItWorks';
+import HowItWorks from '../components/HowItWorks';
 import { BottomNav } from '../components/navigation/BottomNav';
 import { Banner } from '@/components/ui/banner';
 import { Button } from '@/components/ui/button';
@@ -118,7 +118,7 @@ const Index = () => {
               size={isMobile ? 250 : 350} 
             />
             <div className="relative z-10 py-2 sm:py-4">
-              <OptimizedHowItWorks />
+              <HowItWorks />
             </div>
           </section>
           
