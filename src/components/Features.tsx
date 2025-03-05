@@ -233,9 +233,9 @@ const Feature = ({ title, description, Icon, index, isHovered, setHovered }: Fea
           <AnimatePresence>
             {(!isMobile || isExpanded) && (
               <motion.div
-                initial={isMobile ? { height: 0, opacity: 0 } : false}
-                animate={isMobile ? { height: "auto", opacity: 1 } : false}
-                exit={isMobile ? { height: 0, opacity: 0 } : false}
+                initial={isMobile ? { height: 0, opacity: 0 } : { opacity: 1 }}
+                animate={isMobile ? { height: "auto", opacity: 1 } : { opacity: 1 }}
+                exit={isMobile ? { height: 0, opacity: 0 } : { opacity: 0 }}
                 transition={{ duration: 0.2 }}
                 className="overflow-hidden"
               >
