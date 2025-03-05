@@ -1,7 +1,8 @@
+
 // src/pages/Index.tsx
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
-import { Hero } from '../components/hero/Hero';
+import Hero from '../components/Hero'; // Updated import path
 import CallToActionSection from '../components/CallToActionSection';
 import Footer from '../components/Footer';
 import OptimizedHowItWorks from '../components/how-it-works/OptimizedHowItWorks';
