@@ -1,11 +1,10 @@
-
 import React from 'react';
 import { SearchBar } from './search/SearchBar';
 import { CreatorsList } from './search/CreatorsList';
 import { AuroraBackground } from './ui/aurora-background';
 import { BorderBeam } from './ui/border-beam';
 import { GlowingEffect } from './ui/glowing-effect';
-import { Camera, Compass, Video, Laptop } from 'lucide-react';
+import { Camera, Compass, Video, Laptop, Star, Shield, Clock } from 'lucide-react';
 import { AnimatedGrid } from './ui/animated-grid';
 import { cn } from '@/lib/utils';
 
@@ -33,6 +32,26 @@ const CreatorSpecialties = () => {
           <span>{specialty.label}</span>
         </div>
       ))}
+    </div>
+  );
+};
+
+// New component for marketplace stats
+const MarketplaceStats = () => {
+  return (
+    <div className="flex justify-center items-center gap-5 sm:gap-8 py-2 text-xs sm:text-sm text-gray-700">
+      <div className="flex items-center gap-1.5">
+        <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+        <span className="font-semibold">4.8 avg. rating</span>
+      </div>
+      <div className="flex items-center gap-1.5">
+        <Shield className="h-4 w-4 text-green-500" />
+        <span className="font-semibold">100% vetted creators</span>
+      </div>
+      <div className="flex items-center gap-1.5">
+        <Clock className="h-4 w-4 text-blue-500" />
+        <span className="font-semibold">24hr response time</span>
+      </div>
     </div>
   );
 };
@@ -66,14 +85,20 @@ const PreviewSearch = () => {
             showRadialGradient={false}
           >
             <div className="flex flex-col w-full relative z-10">
-              {/* Title and subtitle moved to inside the component */}
+              {/* Enhanced title and subtitle */}
               <div className="text-center pt-6 pb-2 px-4">
+                <div className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 mb-2">
+                  Early Access Available
+                </div>
                 <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2 sm:mb-3 text-gray-900">
-                  Find Your Perfect Creator
+                  Elite Property Creators, Instant Results
                 </h2>
                 <p className="text-gray-600 max-w-2xl mx-auto mb-4 sm:mb-6 text-sm sm:text-base">
-                  Connect with skilled professionals who can showcase your property in its best light
+                  Book top-rated real estate photographers and videographers who help properties sell 30% faster
                 </p>
+                
+                {/* Marketplace stats for social proof */}
+                <MarketplaceStats />
               </div>
               
               {/* Creator specialties with iconography */}
@@ -86,8 +111,13 @@ const PreviewSearch = () => {
                 <SearchBar onLocationSelect={() => {}} />
               </div>
             
-              {/* Creators list section */}
+              {/* Enhanced creators list section */}
               <div className="w-full px-4 py-5 sm:px-6 sm:py-6 bg-gradient-to-b from-transparent to-purple-50/30">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-gray-900">Featured Creators</h3>
+                  <span className="text-sm text-purple-600 font-medium">Early access: 35+ creators</span>
+                </div>
+                
                 <CreatorsList 
                   creators={[{
                     name: "Emily Johnson",
@@ -97,7 +127,9 @@ const PreviewSearch = () => {
                     reviews: 127,
                     location: "New York, NY",
                     image: "/newemilyprofile.jpg",
-                    workExamples: ["/1-d2e3f802.jpg"]
+                    workExamples: ["/1-d2e3f802.jpg"],
+                    badges: ["Top Pro", "24hr Response"],
+                    available: "Available this week"
                   }, {
                     name: "Jane Cooper",
                     services: ["Video Tours", "Drone Footage"],
@@ -106,7 +138,9 @@ const PreviewSearch = () => {
                     reviews: 98,
                     location: "Los Angeles, CA",
                     image: "/janeprofile.png",
-                    workExamples: ["/janesub.jpg", "/janesub2.png", "/janesub3.webp"]
+                    workExamples: ["/janesub.jpg", "/janesub2.png", "/janesub3.webp"],
+                    badges: ["Verified", "Featured"],
+                    available: "Available next week"
                   }, {
                     name: "Michael Brown",
                     services: ["3D Tours", "Floor Plans"],
@@ -115,7 +149,9 @@ const PreviewSearch = () => {
                     reviews: 82,
                     location: "Chicago, IL",
                     image: "/emily profile.jpeg",
-                    workExamples: ["/1-d2e3f802.jpg"]
+                    workExamples: ["/1-d2e3f802.jpg"],
+                    badges: ["Verified"],
+                    available: "Available now"
                   }]} 
                   sortBy="rating" 
                   onSort={() => {}} 
@@ -123,6 +159,15 @@ const PreviewSearch = () => {
                   loadedImages={new Set()} 
                   imageRef={() => {}} 
                 />
+                
+                {/* Trust guarantee */}
+                <div className="mt-6 text-center">
+                  <div className="inline-flex items-center gap-1.5 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full shadow-sm
+                      border border-green-100 text-sm text-gray-700 font-medium">
+                    <Shield className="h-4 w-4 text-green-500" />
+                    <span>100% Satisfaction Guarantee on All Bookings</span>
+                  </div>
+                </div>
               </div>
             </div>
           </AuroraBackground>
