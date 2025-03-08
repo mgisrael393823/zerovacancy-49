@@ -43,7 +43,7 @@ const TextAlongPath = () => {
         
         <text 
           style={{ 
-            fontSize: '18px', 
+            fontSize: '24px', 
             fontFamily: 'monospace',
             fontWeight: 'bold', 
             letterSpacing: '0.15em',
@@ -54,9 +54,12 @@ const TextAlongPath = () => {
             href="#textPath" 
             startOffset={`${offset}%`}
           >
-            JOIN THE WAITLIST ✉ JOIN THE WAITLIST ✉ JOIN THE WAITLIST ✉ JOIN THE WAITLIST ✉ JOIN THE WAITLIST ✉ JOIN THE WAITLIST ✉ JOIN THE WAITLIST ✉ JOIN THE WAITLIST ✉ JOIN THE WAITLIST ✉ JOIN THE WAITLIST ✉
+            JOIN THE WAITLIST ✉ JOIN THE WAITLIST ✉ JOIN THE WAITLIST ✉ JOIN THE WAITLIST ✉ JOIN THE WAITLIST ✉ JOIN THE WAITLIST ✉ JOIN THE WAITLIST ✉ JOIN THE WAITLIST ✉ JOIN THE WAITLIST ✉ JOIN THE WAITLIST ✉ JOIN THE WAITLIST ✉ JOIN THE WAITLIST ✉ JOIN THE WAITLIST ✉ JOIN THE WAITLIST ✉
           </textPath>
         </text>
+        
+        {/* Debug visualization of the path (commented out in production) */}
+        {/* <path d="M 100,100 L 900,100 L 900,500 L 100,500 Z" fill="none" stroke="#ddd" strokeWidth="1" strokeDasharray="5,5" /> */}
       </svg>
     </div>
   );
@@ -101,7 +104,8 @@ export function Hero() {
               "min-h-fit sm:min-h-[50vh]",
               "relative z-10",
               "gap-3 sm:gap-4",
-              "touch-manipulation"
+              "touch-manipulation",
+              "border border-dashed border-blue-300 border-opacity-50" // Added dashed border for visual reference
             )} 
             initial={{
               opacity: 0,
