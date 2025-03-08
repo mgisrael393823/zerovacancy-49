@@ -6,6 +6,59 @@ import { AuroraBackground } from "@/components/ui/aurora-background";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import { WaitlistCTA } from "./ui/waitlist-cta";
+
+// Text Along Path Animation Component
+const TextAlongPath = () => {
+  const [offset, setOffset] = useState(0);
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Update text position for animation
+      setOffset((prev) => (prev + 0.1) % 100);
+    }, 20);
+    
+    return () => clearInterval(interval);
+  }, []);
+  
+  // Rounded rectangle path similar to the example
+  const rectPath = "M 20,20 L 480,20 A 20,20 0 0,1 500,40 L 500,260 A 20,20 0 0,1 480,280 L 20,280 A 20,20 0 0,1 0,260 L 0,40 A 20,20 0 0,1 20,20";
+  
+  return (
+    <div className="absolute inset-0 w-full h-full pointer-events-none z-10">
+      <svg 
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full"
+        viewBox="-20 0 540 300"
+        preserveAspectRatio="none"
+      >
+        <path 
+          id="textPath" 
+          d={rectPath}
+          fill="none" 
+          stroke="transparent"
+        />
+        
+        <text 
+          className="text-sm lowercase"
+          style={{ 
+            fontSize: '12px', 
+            fontWeight: 'bold', 
+            letterSpacing: '0.15em',
+            fill: 'currentColor' 
+          }}
+        >
+          <textPath 
+            href="#textPath" 
+            startOffset={`${offset}%`}
+            textAnchor="start"
+          >
+            VISIONARIES OVER VENDORS • VISIONARIES OVER VENDORS • VISIONARIES OVER VENDORS • VISIONARIES OVER VENDORS • VISIONARIES OVER VENDORS •
+          </textPath>
+        </text>
+      </svg>
+    </div>
+  );
+};
+
 export function Hero() {
   const [titleNumber, setTitleNumber] = useState(0);
   const isMobile = useIsMobile();
@@ -44,6 +97,9 @@ export function Hero() {
       } : {}} transition={{
         duration: 0.3
       }}>
+          {/* Add the TextAlongPath component here */}
+          <TextAlongPath />
+          
           <motion.div initial={{
           opacity: 0,
           y: 20
@@ -109,7 +165,7 @@ export function Hero() {
           duration: 0.3,
           delay: 0.2
         }}>
-            {/* Reduced bottom margin */}
+            {/* Keeping the original WaitlistCTA */}
             <WaitlistCTA className="mb-4" />
           </motion.div>
         </motion.section>
