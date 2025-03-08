@@ -7,24 +7,24 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import { WaitlistCTA } from "./ui/waitlist-cta";
 
-// Text Along Path Animation Component
+// Improved Text Along Path Animation Component
 const TextAlongPath = () => {
   const [offset, setOffset] = useState(0);
   
   useEffect(() => {
+    // Slower animation speed for more subtle effect
     const interval = setInterval(() => {
-      // Update text position for animation
-      setOffset((prev) => (prev + 0.1) % 100);
+      setOffset((prev) => (prev + 0.05) % 100);
     }, 20);
     
     return () => clearInterval(interval);
   }, []);
   
-  // Rounded rectangle path similar to the example
+  // Improved rounded rectangle path with smoother corners
   const rectPath = "M 20,20 L 480,20 A 20,20 0 0,1 500,40 L 500,260 A 20,20 0 0,1 480,280 L 20,280 A 20,20 0 0,1 0,260 L 0,40 A 20,20 0 0,1 20,20";
   
   return (
-    <div className="absolute inset-0 w-full h-full pointer-events-none z-10">
+    <div className="absolute inset-0 w-full h-full pointer-events-none z-10 opacity-80">
       <svg 
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full"
         viewBox="-20 0 540 300"
@@ -34,16 +34,18 @@ const TextAlongPath = () => {
           id="textPath" 
           d={rectPath}
           fill="none" 
-          stroke="transparent"
+          stroke="#E2E2E3"
+          strokeWidth="1.5"
+          strokeOpacity="0.5"
         />
         
         <text 
-          className="text-sm lowercase"
           style={{ 
-            fontSize: '12px', 
-            fontWeight: 'bold', 
-            letterSpacing: '0.15em',
-            fill: 'currentColor' 
+            fontSize: '10px', 
+            fontWeight: 'medium', 
+            letterSpacing: '0.05em',
+            fill: '#9F9EA1',
+            opacity: '0.85'
           }}
         >
           <textPath 
@@ -97,7 +99,7 @@ export function Hero() {
       } : {}} transition={{
         duration: 0.3
       }}>
-          {/* Add the TextAlongPath component here */}
+          {/* Add the improved TextAlongPath component */}
           <TextAlongPath />
           
           <motion.div initial={{
