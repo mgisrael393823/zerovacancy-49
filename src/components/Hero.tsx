@@ -6,52 +6,6 @@ import { AuroraBackground } from "@/components/ui/aurora-background";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import { WaitlistCTA } from "./ui/waitlist-cta";
-
-// Text Along Path Animation Component
-const TextAlongPath = () => {
-  const [rotation, setRotation] = useState(0);
-  
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setRotation(prev => (prev + 0.05) % 360);
-    }, 20);
-    
-    return () => clearInterval(interval);
-  }, []);
-  
-  return (
-    <div className="absolute inset-0 w-full h-full pointer-events-none z-10 flex items-center justify-center">
-      <svg 
-        width="100%" 
-        height="100%" 
-        viewBox="0 0 500 500" 
-        style={{ 
-          position: 'absolute', 
-          transform: `rotate(${rotation}deg)`,
-          maxWidth: '130%',
-          maxHeight: '130%',
-          top: '-15%',
-          left: '-15%'
-        }}
-      >
-        <path 
-          id="textPath" 
-          d="M 250,50 
-             A 200,200 0 1,1 249.99,50" 
-          fill="none" 
-          stroke="transparent"
-        />
-        
-        <text style={{ fontSize: '10px', fontWeight: 'bold', letterSpacing: '0.25em' }}>
-          <textPath href="#textPath" startOffset="0%">
-            VISIONARIES OVER VENDORS • VISIONARIES OVER VENDORS • VISIONARIES OVER VENDORS • VISIONARIES OVER VENDORS •
-          </textPath>
-        </text>
-      </svg>
-    </div>
-  );
-};
-
 export function Hero() {
   const [titleNumber, setTitleNumber] = useState(0);
   const isMobile = useIsMobile();
@@ -90,9 +44,6 @@ export function Hero() {
       } : {}} transition={{
         duration: 0.3
       }}>
-          {/* Add the TextAlongPath component here */}
-          <TextAlongPath />
-          
           <motion.div initial={{
           opacity: 0,
           y: 20
@@ -158,7 +109,7 @@ export function Hero() {
           duration: 0.3,
           delay: 0.2
         }}>
-            {/* Keeping the original WaitlistCTA */}
+            {/* Reduced bottom margin */}
             <WaitlistCTA className="mb-4" />
           </motion.div>
         </motion.section>
