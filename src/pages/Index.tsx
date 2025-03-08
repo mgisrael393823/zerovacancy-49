@@ -1,4 +1,3 @@
-
 // src/pages/Index.tsx
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
@@ -19,6 +18,7 @@ import PreviewSearch from '@/components/PreviewSearch';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
 import { GradientBlobBackground } from '@/components/ui/gradient-blob-background';
+import { MarqueeDemo } from '@/components/MarqueeDemo';
 
 /**
  * Main landing page component with performance optimizations and improved spacing
@@ -45,7 +45,6 @@ const Index = () => {
     <div className="flex flex-col min-h-screen w-full max-w-full overflow-x-hidden">
       <Header />
       
-      {/* Enhanced Banner - Improved animation and spacing */}
       {showBanner && (
         <div className="relative z-20">
           <Banner 
@@ -105,6 +104,9 @@ const Index = () => {
             <Hero />
           </div>
         </div>
+
+        {/* Marquee Section - Added between Hero and Journey sections */}
+        <MarqueeDemo />
 
         {/* Improved spacing between sections with consistent rhythm */}
         <div className="space-y-0 w-full">
